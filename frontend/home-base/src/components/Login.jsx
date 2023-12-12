@@ -1,3 +1,7 @@
+import React from 'react';
+import HomeBase from '../assets/HomeBase.svg';
+import { Link } from 'react-router-dom';
+
 export default function Login() {
     
     const handleSubmit = (event) => {
@@ -7,6 +11,7 @@ export default function Login() {
 
     return (
         <div className='App'>
+            <img src={HomeBase} alt="HomeBase Logo" className="logo" />
             <form onSubmit={handleSubmit}>
                 <div className="formInfo">
                     <label>
