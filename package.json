@@ -1,0 +1,15 @@
+{
+  "name": "team-418",
+  "version": "1.0.0",
+  "description": "Members: Austin H., Brittney E., Liam C. Tracy H.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "vite": "^5.0.6"
+  }
+}
