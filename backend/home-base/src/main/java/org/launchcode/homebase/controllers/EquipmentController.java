@@ -43,6 +43,7 @@ public class EquipmentController {
         return new ResponseEntity<>(equipment, HttpStatus.OK);
     }
 
+    //TODO: ADD assignedUser to parameters
     @PostMapping("/equipment")
     public ResponseEntity<Equipment> createEquipment(@RequestBody Equipment equipment) {
         Equipment _equipment = equipmentRepository.save(new Equipment(equipment.getName(), equipment.getFilters(), equipment.getFilterLifeDays()));

@@ -1,5 +1,7 @@
 package org.launchcode.homebase.models;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.*;
@@ -23,13 +25,15 @@ public class Filter extends AbstractEntity{
 
     @NotNull(message = "Filter height is required.")
     @Positive(message = "Filter height must be a positive number.")
-    private int height;
+    private double height;
 
     @ManyToOne
     @NotNull(message = "Equipment is required.")
+    @JsonIgnore
     private Equipment equipment;
 
     @Past
+    @JsonFormat(pattern = "yyyy-MM-dd")
     private Date dateOfLastChange;
 
     public Filter(String location, int length, int width, int height, Equipment equipment, Date dateOfLastChange) {
@@ -68,11 +72,11 @@ public class Filter extends AbstractEntity{
         this.width = width;
     }
 
-    public int getHeight() {
+    public double getHeight() {
         return height;
     }
 
-    public void setHeight(int height) {
+    public void setHeight(double height) {
         this.height = height;
     }
 

@@ -18,7 +18,6 @@ public class Equipment extends AbstractEntity {
     private String name;
 
     @OneToMany(mappedBy = "equipment")
-    @Valid
     @NotNull
     private List<Filter> filters;
 
