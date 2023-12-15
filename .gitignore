@@ -1,6 +1,7 @@
 
 package.json
 
+
 ### IntelliJ IDEA ###
 .idea
 *.iws
@@ -9,3 +10,6 @@ package.json
 /out/
 .DS_Store
 src/.DS_Store
+
+workspace.xml
+
