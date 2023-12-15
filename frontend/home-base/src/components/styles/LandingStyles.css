@@ -1,0 +1,26 @@
+h1 {
+    position: absolute;
+    /* top: 50%;
+    left: 50%; */
+    text-align: center;
+
+}
+
+.landing-logo {
+    height: 100px;
+    text-align: center;
+}
+
+
+
+.landing-name {
+    color: white;
+}
+
+.login {
+    text-align: center;
+}
+
+.signup {
+    text-align: center;
+}
