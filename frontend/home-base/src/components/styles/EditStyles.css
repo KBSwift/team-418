@@ -1,0 +1,31 @@
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+.container-fluid {
+    display: flex;
+    gap: 50px;
+}
+
+.menu {
+    height: 30vh;
+    width: 30vw;
+}
+.list-group {
+    height: 100%;
+    width: 100%;
+    border-radius: 4px;
+    display: table;
+    box-sizing: border-box;
+}
+
+.list-group-equipment {
+    height: 25%;
+    width: 100%;
+    border: 1px solid grey;
+    border-radius: 4px;
+    display: table-cell;   
+    padding: 10px;
+}
+
