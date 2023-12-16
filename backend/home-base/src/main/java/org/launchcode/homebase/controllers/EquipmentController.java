@@ -20,13 +20,8 @@ public class EquipmentController {
     private EquipmentRepository equipmentRepository;
 
     @GetMapping("/equipment")
-    public ResponseEntity<List<Equipment>> getAllEquipment(@RequestParam(required = false) String name) {
-        List<Equipment> equipment = new ArrayList<>();
-
-        if (name == null)
-            equipmentRepository.findAll();
-        else
-            equipmentRepository.findByName(name);
+    public ResponseEntity<List<Equipment>> getAllEquipment() {
+        List<Equipment> equipment = equipmentRepository.findAll();
 
         if (equipment.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
