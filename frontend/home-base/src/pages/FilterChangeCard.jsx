@@ -5,9 +5,9 @@ import axios from 'axios';
 
 function FilterChangeCard({userId}){
 
-    // Load Data
+    // Load Data, putting data into empty array.
 
-    const[data, setData] = useState(null);
+    const[data, setData] = useState([]);
     const[loading, setLoading] = useState(true);
     const[error, setError] = useState(null);
     
@@ -36,27 +36,38 @@ function FilterChangeCard({userId}){
     // Extract info from data response.
     //TO-DO Test data pull and data structure
 
-    const equipmentName = data.equipment.name;
-    const filterLocation = data.location;
-    const filterSize = '${data.length} x ${data.width} x ${data.height}';
-    const dueDate = data.equipment.filterLifeDays;
 
-    return(
-        <div class="card" style={{width: '18rem'}}>
-  <img></img>
- 
- {/* TO-DO Fix the sample text to pull data */}
- {/* TO-DO Import Card into app.jsx & configure routing */}
-  <div className="card-body">
-    <h5 className="card-title">{equipmentName}</h5>
-    <h6 className="card-subtitle mb-2 text-muted">{filterLocation}</h6>
-    <p className="card-text">Filter Size: {filterSize}</p>
-    <p className="card-text">Due Date: {dueDate}</p>
-    <button type="button" class="btn">Change Now</button>
-  </div>
-</div>
+    // Saving this portion in case mapping over the data array doesn't work
+    // const equipmentName = data.equipment.name;
+    // const filterLocation = data.location;
+    // const filterSize = '${data.length} x ${data.width} x ${data.height}';
+    // const dueDate = data.equipment.filterLifeDays;
 
+
+    // renderDeck function will map over data array
+    // TO-DO Needs testing for data load 
+    // TO-DO Import Card into app.jsx & configure routing
+    const renderDeck = () => {
+      return data.map(item => (    
+        <div key={item.id} className="card" style={{width: '18rem'}}>
+            <img></img>
+            <div className="card-body">
+                <h5 className="card-title">{item.equipment.name}</h5>
+                <h6 className="card-subtitle mb-2 text-muted">{item.location}</h6>
+                <p className="card-text">Filter Size: {item.length} x {item.width} x {item.height}</p>
+                <p className="card-text">Due Date: {item.equipment.filterLifeDays}</p>
+                <button type="button" class="btn">Change Now</button>
+            </div>
+        </div> 
+        ));  
+    };
+
+    return (
+        <div className="card-deck">
+            {renderDeck()}
+        </div>
     );
+    
 
 }
 
