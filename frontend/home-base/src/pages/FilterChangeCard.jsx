@@ -1,5 +1,13 @@
+import React from 'react';
+import { useState, useEffect } from 'react';
+import axios from 'axios';
+
 
 function FilterChangeCard(){
+
+
+
+    
     return(
         <div class="card" style={{width: '18rem'}}>
   <img></img>
