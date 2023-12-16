@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="96b03bcd-8268-4b23-a96e-aa6494026872" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/home-base/src/assets/HomeBase.svg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/home-base/src/components/Login.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/home-base/src/components/Login.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/backend/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/backend/.idea/misc.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,8 +36,9 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main",
-    "last_opened_file_path": "C:/Users/Avari/Desktop/LC Project/LiftOff/Project/team-418/backend/home-base",
+    "git-widget-placeholder": "brittney/filter-crud",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/brittneyepperson/launchcode/team-418",
     "settings.editor.selected.configurable": "preferences.general"
   }
 }]]></component>
