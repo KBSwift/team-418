@@ -14,15 +14,23 @@ function FilterChangeCard({userId}){
     // the http request needs to fetch both equipment and filter data. Perhaps create custom query in back end to retrieve info based on user logged in. Example: `http://localhost:8080/api/user/${userId}/equipment-and-filters`
 
     useEffect(() => {
-        axios.get(insert api endpoint)
-        .then(response => {
-            setData(response.data);
-            setLoading(false);
-        })
-        .catch(error =>{
-            setError(error);
-            setLoading(false);
-        });
+        axios.get(`http://localhost:3306/api/user/${userId}/equipment`)
+            .then(response => {
+                setEquipmentData(response.data);
+            })
+            .catch(error => {
+                setEquipmentError(error);
+            });
+
+        axios.get(`http://localhost:3306/api/user/${userId}/equipment/{equipmentId}/filters`)
+            .then(response => {
+                setFilterData(response.data);
+                setLoading(false);
+            })
+            .catch(error => {
+                setFilterError(error);
+                setLoading(false);
+            });
     }, [userId]); // userId in dependency array for useEffect hook
         
     if(loading) {
