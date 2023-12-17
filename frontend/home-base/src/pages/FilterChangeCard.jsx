@@ -14,7 +14,7 @@ function FilterChangeCard({userId}){
     // the http request needs to fetch both equipment and filter data. Perhaps create custom query in back end to retrieve info based on user logged in. Example: `http://localhost:8080/api/user/${userId}/equipment-and-filters`
 
     useEffect(() => {
-        axios.get(`http://localhost:3306/api/user/${userId}/equipment`)
+        axios.get(`http://localhost:5173/api/user/${userId}/equipment`)
             .then(response => {
                 setEquipmentData(response.data);
             })
@@ -22,7 +22,7 @@ function FilterChangeCard({userId}){
                 setEquipmentError(error);
             });
 
-        axios.get(`http://localhost:3306/api/user/${userId}/equipment/{equipmentId}/filters`)
+        axios.get(`http://localhost:5173/api/user/${userId}/equipment/{equipmentId}/filters`)
             .then(response => {
                 setFilterData(response.data);
                 setLoading(false);
@@ -41,20 +41,12 @@ function FilterChangeCard({userId}){
         return <p>Encoutered error: {error.message}. Please try again.</p>
     }
 
-    // Extract info from data response.
     //TO-DO Test data pull and data structure
-
-
-    // Saving this portion in case mapping over the data array doesn't work
-    // const equipmentName = data.equipment.name;
-    // const filterLocation = data.location;
-    // const filterSize = '${data.length} x ${data.width} x ${data.height}';
-    // const dueDate = data.equipment.filterLifeDays;
-
 
     // renderDeck function will map over data array
     // TO-DO Needs testing for data load 
-    // TO-DO Import Card into app.jsx & configure routing
+    // TO-DO Import Card into app.jsx(or relevant file) & configure routing
+
     const renderDeck = () => {
       return data.map(item => (    
         <div key={item.id} className="card" style={{width: '18rem'}}>
