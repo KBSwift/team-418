@@ -5,6 +5,7 @@ import NavigationBar from './components/NavigationBar';
 import Landing from './components/views/Landing';
 import Signup from './components/views/Signup';
 import Edit from './components/views/Edit';
+import FilterChangeCard from './pages/FilterChangeCard';
 
 const Routing = () => {
   return (
@@ -12,8 +13,8 @@ const Routing = () => {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/signup" element={ <Signup/> } />
-        
         <Route path="/edit" element={<Edit/>} />
+        <Route path="/filter-change" element={<FilterChangeCard/>} />
       </Routes>
     </Router>
   );
