@@ -16,7 +16,7 @@ export default function Edit() {
     setEquipment(result.data);
   };
 
-  const tableDetails = 
+  const equipmentTableDetails = 
     equipment.map((item, index)=> {
       return <tr key={index}>
         <td>{item.id}</td>
@@ -87,7 +87,7 @@ export default function Edit() {
             </tr>
           </thead>
           <tbody>
-            {tableDetails}
+            {equipmentTableDetails}
           </tbody>
         </table>
       </div>
