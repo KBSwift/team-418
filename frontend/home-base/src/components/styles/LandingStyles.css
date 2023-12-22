@@ -37,6 +37,12 @@ body {
   background-color: #333;
 }
 
+.landing-logo {
+ width: 100%;
+ max-width: 8rem;
+ height: auto;
+}
+
 body {
   display: -ms-flexbox;
   display: flex;
@@ -52,6 +58,7 @@ body {
 
 .cover-container {
   max-width: 42em;
+  align-items: center;
 }
 
 

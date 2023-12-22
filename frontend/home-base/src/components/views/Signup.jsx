@@ -1,6 +1,7 @@
 import React from 'react';
 import HomeBase from '../../assets/HomeBase.svg';
 import { Link } from 'react-router-dom';
+import '../styles/SignupStyles.css';
 
 export default function Signup() {
     

@@ -7,7 +7,7 @@ import '../components/styles/NavigationBarStyle.css';
 
 const NavigationBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
+    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
       <a className="navbar-brand" href="/">
         <nav class="navbar navbar-light bg-light">
           <a class="navbar-brand" href="/">

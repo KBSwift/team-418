@@ -11,6 +11,7 @@ const Landing = () => {
       <div className="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
         {/* <header className="masthead mb-auto">
           <div className="inner"> */}
+        <img src={HomeBase} alt="HomeBase Logo" className="landing-logo" />
             <h1 className="masthead-brand">HomeBase</h1>
             <nav className="nav nav-masthead justify-content-center"> 
             </nav>
