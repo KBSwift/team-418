@@ -30,12 +30,6 @@ export default function Signup() {
                         <input type="password" />
                     </label>
                 </div>
-                <div className="formInfo">
-                    <label>
-                        Mobile # (Opt.):
-                        <input type="number" />
-                    </label>
-                </div>
                     <input type="submit" value="Submit" />
             </form>
         </div>
