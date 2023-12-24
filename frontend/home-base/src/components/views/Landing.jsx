@@ -35,7 +35,7 @@ export default function Landing() {
                 <div className='login'>
                     <h2>Log-in</h2>
                 </div>
-                
+        
             </div>
         </div>
         
