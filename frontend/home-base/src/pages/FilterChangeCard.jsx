@@ -1,6 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/Button';
+import { CardGroup } from 'react-bootstrap';
 import axios from 'axios';
 
 
@@ -46,13 +48,13 @@ function FilterChangeCard({userId}){
     const renderDeck = () => {
         return equipmentData.map(item => (    
           <Card key={item.id} style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={item.imageUrl} alt={item.name} />
+            {/* <Card.Img variant="top" src={item.imageUrl} alt={item.name} /> */}
             <Card.Body>
               <Card.Title>{item.name}</Card.Title>
       
               {item.filters.map(filter => (
                 <div key={filter.id}>
-                  <Card.Subtitle className="mb-2 text-muted">Location: {filter.location}</Card.Subtitle>
+                  <Card.Subtitle>Location: {filter.location}</Card.Subtitle>
                   <Card.Text>Filter Size: {filter.length} x {filter.width} x {filter.height}</Card.Text>
                   <Card.Text>Date of Last Change: {filter.dateOfLastChange}</Card.Text>
                 </div>
@@ -66,12 +68,10 @@ function FilterChangeCard({userId}){
       };
 
     return (
-        <div className="card-deck">
+        <CardGroup>
             {renderDeck()}
-        </div>
+        </CardGroup>
     );
-    
-
 }
 
 export default FilterChangeCard
