@@ -1,95 +1,76 @@
-import React, { useEffect, useState } from 'react';
-import axios from "axios";
-import '../styles/EditStyles.css'
+import React, { useState } from 'react';
+import AddEquipmentForm from '../AddEquipmentForm';
+import AddFilterForm from '../AddFilterForm';
+import EditEquipmentTable from '../EditEquipmentTable';
+import '../styles/EditStyles.css';
 
 export default function Edit() {
+  const [selectedOption, setSelectedOption] = useState(null);
 
-  const [equipment, setEquipment] = useState([]);
-
-  useEffect(() => {
-    loadEquipment();
-  },[]);
-
-  const loadEquipment = async () => {
-    const result = await axios.get("http://localhost:8080/api/equipment")
-    console.log(result.data);
-    setEquipment(result.data);
+  const renderComponent = () => {
+    switch (selectedOption) {
+      case 'userSettings':
+        // Render User Settings component
+        return <UserSettingsComponent />;
+      case 'editEquipment':
+        // Render Equipment Settings component
+        return <EditEquipmentTable />;
+      case 'addEquipment':
+        // Render Add Equipment Form component
+        return <AddEquipmentForm />;
+      case 'addFilter':
+        // Render Add Filter Form component
+        return <AddFilterForm />;
+      default:
+        // Render a default component - Edit Equipment Table
+        return <EditEquipmentTable />;
+    }
   };
 
-  const equipmentTableDetails = 
-    equipment.map((item, index)=> {
-      return <tr key={index}>
-        <td>{item.id}</td>
-        <td>{item.name}</td>
-        <td>{item.filterLifeDays}</td>
-        { item.filters.map((filter, id) => {
-            return <>
-              <td key={id}>{filter.location}</td>
-              <td>{filter.length}</td>
-              <td>{filter.width}</td>
-              <td>{filter.height}</td>
-              <td>{filter.dateOfLastChange}</td>
-            </>
-          })}
-        <td>
-          <button>Edit</button>
-          <button>Delete</button>
-        </td>
-      </tr>
-    })
-
-  const [isClicked, setIsClicked] = useState(false);
+  const handleOptionClick = (option) => {
+    setSelectedOption(option);
+  };
 
   return (
     <div className="container-fluid">
       <div className="menu">
         <ul className="list-group">
-          <a>
-            <li className="list-group-equipment d-flex justify-content-between align-equipments-center">
+          <li
+            className="list-group-equipment d-flex justify-content-between align-equipments-center"
+            onClick={() => handleOptionClick('userSettings')}
+          >
             User Settings
-              <span className="badge badge-primary badge-pill">&gt;</span>
-            </li>
-          </a>
-          <a>
-            <li className="list-group-equipment d-flex justify-content-between align-equipments-center">
-              Equipment Settings
-              <span className="badge badge-primary badge-pill">&gt;</span>
-            </li>
-          </a>
-          <a>
-            <li className="list-group-equipment d-flex justify-content-between align-equipments-center">
-              Add Equipment
-              <span className="badge badge-primary badge-pill">&gt;</span>
-            </li>
-          </a>
-          <a href={"/signup"}>
-            <li className="list-group-equipment d-flex justify-content-between align-equipments-center">
-              Register New User
-              <span className="badge badge-primary badge-pill">&gt;</span>
-            </li>
-          </a>
+            <span className="badge badge-primary badge-pill">&gt;</span>
+          </li>
+          <li
+            className="list-group-equipment d-flex justify-content-between align-equipments-center"
+            onClick={() => handleOptionClick('editEquipment')}
+          >
+            Edit Filter Information
+            <span className="badge badge-primary badge-pill">&gt;</span>
+          </li>
+          <li
+            className="list-group-equipment d-flex justify-content-between align-equipments-center"
+            onClick={() => handleOptionClick('addEquipment')}
+          >
+            Add Equipment
+            <span className="badge badge-primary badge-pill">&gt;</span>
+          </li>
+          <li
+            className="list-group-equipment d-flex justify-content-between align-equipments-center"
+            onClick={() => handleOptionClick('addFilter')}
+          >
+            Add Filter
+            <span className="badge badge-primary badge-pill">&gt;</span>
+          </li>
         </ul>
       </div>
-
-      <div className="table-pane">
-        <table className="table">
-          <thead className="thead-light">
-            <tr>
-              <th scope="col">ID</th>
-              <th scope="col">Equipment Name</th>
-              <th scope="col">Max Days Filter Life</th>
-              <th scope="col">Filter Location</th>
-              <th scope="col">Filter Length</th>
-              <th scope="col">Filter Width</th>
-              <th scope="col">Filter Height</th>
-              <th scope="col">Filter Date of Last Change</th>
-              <th scope="col">Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {equipmentTableDetails}
-          </tbody>
-        </table>
-      </div>
+      <div className="right-pane">{renderComponent()}</div>
     </div>
-)}
+  );
+}
+
+// Additional components for rendering
+const UserSettingsComponent = () => {
+  return <div>User Settings Component</div>;
+};

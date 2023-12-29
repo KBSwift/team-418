@@ -6,6 +6,7 @@ import Landing from './components/views/Landing';
 import Signup from './components/views/Signup';
 import Edit from './components/views/Edit';
 import FilterChangeCard from './pages/FilterChangeCard';
+import EditFilter from './components/views/EditFilter';
 
 const Routing = () => {
   return (
@@ -15,6 +16,7 @@ const Routing = () => {
         <Route path="/signup" element={ <Signup/> } />
         <Route path="/edit" element={<Edit/>} />
         <Route path="/filter-change" element={<FilterChangeCard/>} />
+        <Route path="/editFilter/:id" element={<EditFilter />} />
       </Routes>
     </Router>
   );

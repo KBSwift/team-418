@@ -65,6 +65,11 @@ public class FilterController {
         return new ResponseEntity<>(filterRepository.save(filter), HttpStatus.OK);
     }
 
+    @RequestMapping(value = "/filters/{id}", method = RequestMethod.OPTIONS)
+    public ResponseEntity<?> handleOptions() {
+        return ResponseEntity.ok().build();
+    }
+
     @DeleteMapping("/filters/{id}")
     public ResponseEntity<HttpStatus> deleteFilter(@PathVariable("id") int id) {
         filterRepository.deleteById(id);

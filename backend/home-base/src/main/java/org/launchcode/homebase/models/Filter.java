@@ -3,8 +3,12 @@ package org.launchcode.homebase.models;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.*;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import java.sql.Date;
 
@@ -27,8 +31,9 @@ public class Filter extends AbstractEntity{
     @Positive(message = "Filter height must be a positive number.")
     private double height;
 
-    @ManyToOne
-    @NotNull(message = "Equipment is required.")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "equipment_id", nullable = false)
+    @OnDelete(action = OnDeleteAction.CASCADE)
     @JsonIgnore
     private Equipment equipment;
 

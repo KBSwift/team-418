@@ -4,14 +4,18 @@ body {
 }
 
 .container-fluid {
+    height: 95vh;
+    width: 96vw;
     display: flex;
-    gap: 50px;
+    gap: 25px;
 }
 
 .menu {
-    height: 30vh;
+    height: 40vh;
     width: 30vw;
+    margin: auto;
 }
+
 .list-group {
     height: 100%;
     width: 100%;
@@ -24,8 +28,25 @@ body {
     height: 25%;
     width: 100%;
     border: 1px solid grey;
+    background-color: hsla(230, 6%, 78%, 0.90);
     border-radius: 4px;
+    box-shadow: 1px 1px 10px grey;
     display: table-cell;   
-    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    padding: 20px;
 }
 
+.right-pane {
+    height: 75vh;
+    width: 75vw;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: hsla(230, 6%, 78%, 0.90);
+    border-radius: 4px;
+    border: 1px solid grey;
+    box-shadow: 1px 1px 10px grey;
+    overflow: scroll;
+}
