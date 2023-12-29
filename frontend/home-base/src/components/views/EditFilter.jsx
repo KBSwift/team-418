@@ -6,8 +6,6 @@ const EditFilter = () => {
 
     const { id } = useParams();
 
-    const [equipment, setEquipment] = useState([]);
-
     const [filter, setFilter] = useState({
         id: '',
         location: '',
@@ -15,33 +13,20 @@ const EditFilter = () => {
         width: '',
         height: '',
         dateOfLastChange: '',
-        equipment: ''
     });
 
-    const loadEquipment = async () => {
-        try {
-            const result = await axios.get("http://localhost:8080/api/equipment");
-            console.log(result.data);
-            setEquipment(result.data);
-        } catch (error) {
-            console.error('Error loading equipment:', error);
-        }
-    };
-
-    const [selectedEquipmentId, setSelectedEquipmentId] = useState('');
-
     useEffect(() => {
-        loadEquipment();
         loadFilter();
     },[]);
 
     const loadFilter = async () => {
-        const result = await axios.get(`http://localhost:8080/api/filters/${id}`)
-        console.log(result.data);
-        setFilter(result.data);
-
-        const equipmentId = result.data.equipment ? result.data.equipment.id : '';
-        setSelectedEquipmentId(equipmentId);
+        try {
+            const result = await axios.get(`http://localhost:8080/api/filters/${id}`);
+            console.log(result.data);
+            setFilter(result.data);
+        } catch (error) {
+            console.error('Error loading filter:', error);
+        }
     };
 
     const [errors, setErrors] = useState({
@@ -50,7 +35,6 @@ const EditFilter = () => {
         width: '',
         height: '',
         dateOfLastChange: '',
-        equipment: ''
     });
 
     function validateForm() {
@@ -101,14 +85,6 @@ const EditFilter = () => {
             validate = false;
         }
     
-        // Validate equipment
-        if (selectedEquipmentId !== '') {
-            errorsCopy.equipment = '';
-        } else {
-            errorsCopy.equipment = 'Select Equipment is required.';
-            validate = false;
-        }
-    
         setErrors(errorsCopy);
         return validate;
     }
@@ -116,11 +92,7 @@ const EditFilter = () => {
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFilter({...filter, [name]:value})
-
-        if (name === 'equipmentId') {
-            setSelectedEquipmentId(value.id);
-        }
-     };
+    };
 
     const navigate = useNavigate();
 
@@ -128,23 +100,37 @@ const EditFilter = () => {
         event.preventDefault();
         if (validateForm()) {
           try {
+
+            const { id, location, length, width, height, dateOfLastChange } = filter;
+      
+            const formattedDate = new Date(dateOfLastChange).toISOString().split('T')[0];
+      
             const response = await axios.put(
-              `http://localhost:8080/api/filter/${id}`
+              `http://localhost:8080/api/filters/${id}`,
+              {
+                id,
+                location,
+                length,
+                width,
+                height,
+                dateOfLastChange: formattedDate,
+              }
             );
+
             console.log(response.data);
+            navigate(-1);
           } catch (error) {
             // Handle other errors
             console.error('Error:', error);
           }
-          navigate(0);
         }
-    };
+      };
 
   return (
     <div>
         <form>
             <div>
-                <input type="hidden" name="id" id="id" value={filter.id} onChange={handleChange}/>
+                <input type="hidden" name="filterId" id="filterId" value={filter.id}/>
                 <label htmlFor="location">Filter Location:</label>
                 <input
                 type="text"
@@ -204,25 +190,6 @@ const EditFilter = () => {
                 />
                 {errors.dateOfLastChange && <div className="invalid-feedback">{errors.dateOfLastChange}</div>}
             </div>
-            <div className="form-group mb-2">
-                <label htmlFor="equipmentId">Select Equipment: </label>
-                <select
-                  id="equipmentId"
-                  name="equipmentId"
-                  className={`form-select form-control ${ errors.equipment ? 'is-invalid' : ''}`}
-                  value={selectedEquipmentId}
-                  onChange={handleChange}>
-                    <option>Select Equipment</option>
-                        {equipment.map((item) => {
-                            return (
-                            <option key={item.id} value={item.id}>
-                                {item.name}
-                            </option>
-                            );
-                        })}
-                </select>
-                {errors.equipment && <div className="invalid-feedback">{errors.equipment}</div>}
-              </div>
             <button className = "btn btn-success" onClick={saveFilter}>Submit</button>    
         </form>
     </div>

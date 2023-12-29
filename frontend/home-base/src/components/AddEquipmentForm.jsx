@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import EquipmentTable from "./EquipmentTable";
 
 const AddEquipmentForm = () => {
+  
   const [equipment, setEquipment] = useState({
     id: "",
     name: "",

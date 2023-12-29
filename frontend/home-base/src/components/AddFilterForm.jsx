@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddFilterForm = () => {
+
   const [filter, setFilter] = useState({
     id: "",
     location: "",
@@ -22,10 +23,14 @@ const AddFilterForm = () => {
   }, []);
 
   const loadEquipment = async () => {
-    const result = await axios.get("http://localhost:8080/api/equipment");
-    console.log(result.data);
-    setEquipment(result.data);
-  };
+        try {
+            const result = await axios.get("http://localhost:8080/api/equipment");
+            console.log(result.data);
+            setEquipment(result.data);
+        } catch (error) {
+            console.error('Error loading equipment:', error);
+        }
+    };
 
   const [errors, setErrors] = useState({
     location: "",
@@ -105,7 +110,7 @@ const AddFilterForm = () => {
     setFilter({ ...filter, [name]: value });
 
     if (name === "equipmentId") {
-      setSelectedEquipmentId(value);
+        setSelectedEquipmentId(value);
     }
   };
 
@@ -113,7 +118,6 @@ const AddFilterForm = () => {
 
   const saveFilter = async (event) => {
     event.preventDefault();
-
     if (validateForm()) {
       try {
         const response = await axios.post(
