@@ -37,6 +37,50 @@ function FilterChangeCard({userId}){
         return <p>Encoutered error: {error.message}. Please try again.</p>
     }
 
+    const handleClick = async (equipmentId) => {
+        try {
+          const selectedEquipment = equipmentData.find(equipment => equipment.id === equipmentId);
+      
+          const updatedData = {
+            id: selectedEquipment.id,
+            name: selectedEquipment.name,
+            filters: selectedEquipment.filters.map(filter => ({
+              id: filter.id,
+              location: filter.location,
+              length: filter.length,
+              width: filter.width,
+              height: filter.height,
+              dateOfLastChange: new Date().toDateString(),
+            })),
+            filterLifeDays: 80,
+          };
+      
+          await axios.put(`http://localhost:8080/api/equipment/${equipmentId}`, updatedData);
+      
+          setEquipmentData(prevData => {
+            return prevData.map(equipment => {
+              if (equipment.id === equipmentId) {
+                const updatedEquipment = {
+                  ...equipment,
+                  filterLifeDays: 70,
+                  filters: equipment.filters.map(filter => ({
+                    ...filter,
+                    dateOfLastChange: new Date().toDateString(),
+                  })),
+                };
+                // Return the updated equipment
+                return updatedEquipment;
+              }
+              // Return the unchanged equipment
+              return equipment;
+            });
+          });
+        } catch (error) {
+          console.error('Error updating equipment data:', error);
+        }
+      };
+      
+    
     //TO-DO Test data pull and data structure
 
     // renderDeck function will map over data array
@@ -60,7 +104,7 @@ function FilterChangeCard({userId}){
                                 </ListGroup>
                             ))}
                             <Card.Text>Due Date: {item.filterLifeDays}</Card.Text>
-                            <Button variant="primary">Change Now</Button>
+                            <Button onClick={handleClick} variant="primary">Change Now</Button>
                         </Card.Body>
                     </Card>
                 ))}
