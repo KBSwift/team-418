@@ -59,10 +59,14 @@ public class FilterController {
         filter.setLength(_filter.getLength());
         filter.setWidth(_filter.getWidth());
         filter.setHeight(_filter.getHeight());
-        filter.setEquipment(_filter.getEquipment());
         filter.setDateOfLastChange(_filter.getDateOfLastChange());
 
         return new ResponseEntity<>(filterRepository.save(filter), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/filters/{id}", method = RequestMethod.OPTIONS)
+    public ResponseEntity<?> handleOptions() {
+        return ResponseEntity.ok().build();
     }
 
     @DeleteMapping("/filters/{id}")

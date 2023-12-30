@@ -18,17 +18,12 @@ public class Equipment extends AbstractEntity {
     private String name;
 
     @OneToMany(mappedBy = "equipment")
-    @NotNull
     private List<Filter> filters;
 
     @NotNull(message = "Filter life is required.")
     @Positive(message = "Filter life must be a positive number.")
     private int filterLifeDays;
 
-//TODO: ADD assignedUser field
-//    private User assignedUser;
-
-//TODO: ADD assignedUser to constructor
     public Equipment(String name, List<Filter> filters, int filterLifeDays) {
         this.name = name;
         this.filters = filters;
@@ -61,15 +56,6 @@ public class Equipment extends AbstractEntity {
     public void setFilterLifeDays(int filterLifeDays) {
         this.filterLifeDays = filterLifeDays;
     }
-
-//TODO:ADD assignedUser getters and setters
-//    public User getAssignedUser() {
-//        return assignedUser;
-//    }
-//
-//    public void setAssignedUser(User assignedUser) {
-//        this.assignedUser = assignedUser;
-//    }
 
     @Override
     public String toString() {
