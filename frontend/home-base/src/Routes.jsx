@@ -4,7 +4,9 @@ import Login from './components/views/Signup';
 import NavigationBar from './components/NavigationBar';
 import Landing from './components/views/Landing';
 import Signup from './components/views/Signup';
+import Edit from './components/views/Edit';
 import FilterChangeCard from './components/views/FilterChangeCard';
+import EditFilter from './components/views/EditFilter';
 import AccountSettings from './components/views/AccountSettings'
 
 const Routing = () => {
@@ -13,7 +15,9 @@ const Routing = () => {
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/signup" element={<Signup/>} />
+        <Route path="/edit" element={<Edit/>} />
         <Route path="/filter-change" element={<FilterChangeCard/>} />
+        <Route path="/editFilter/:id" element={<EditFilter />} />
         <Route path="/account-settings" element={<AccountSettings/>} />
       </Routes>
     </Router>
