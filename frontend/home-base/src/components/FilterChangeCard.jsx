@@ -26,6 +26,7 @@ function FilterChangeCard({userId}){
                 setError(error);
                 setLoading(false);
             });
+        axios.get('http://localhost:8080/api/equipment/${equipmentId}/filters')
 
     }, [userId]); // userId in dependency array for useEffect hook
         
@@ -37,51 +38,66 @@ function FilterChangeCard({userId}){
         return <p>Encoutered error: {error.message}. Please try again.</p>
     }
 
-    const handleClick = async (equipmentId, filterId) => {
+    const handleClick = async (equipmentId, filters) => {
         try {
+          //Find correct equipment
           const selectedEquipment = equipmentData.find(equipment => equipment.id === equipmentId);
-            console.log(selectedEquipment);
+          //update equipment variable
+          //TO DO Fix filterLifeDays updated value
           const updatedData = {
             id: selectedEquipment.id,
             name: selectedEquipment.name,
-            filters: selectedEquipment.filters.map(filter => ({
-              id: filter.id, 
-              location: filter.location, 
-              length: filter.length,
-              width: filter.width,
-              height: filter.height, 
-              dateOfLastChange: filter.dateOfLastChange,
-              })),
+            filters: [],
             filterLifeDays: 80,
           };
-
-      console.log(updatedData);
-// add additional put request for filter
-        //   await axios.put(`http://localhost:8080/api/equipment/${equipmentId}`, updatedData);
-        await axios.put(`http://localhost:8080/api/equipment/${equipmentId}`, updatedData, {
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    });
-      
-          setEquipmentData(prevData => {
-            return prevData.map(equipment => {
-              if (equipment.id === equipmentId) {
-                const updatedEquipment = {
-                  equipment,
-                  filterLifeDays: 70,
-                  filters: equipment.filters.map(filter => ({
-                    filter,
-                    dateOfLastChange: new Date().toDateString(),
-                  })),
-                };
-                // Return the updated equipment
-                return updatedEquipment;
+          //Update Filter data, includes Put Request
+          const updatedFilters = filters.map(async (filter) => {
+            const response = await axios.put(
+              `http://localhost:8080/api/filters/${filter.id}`,
+              {
+                id: filter.id,
+                location: filter.location,
+                length: filter.length,
+                width: filter.width,
+                height: filter.height,
+                dateOfLastChange: new Date().toLocaleDateString('en-US'), 
+              },
+              {
+                headers: {
+                  'Content-Type': 'application/json',
+                },
               }
-              // Return the unchanged equipment
-              return equipment;
-            });
+            );
+            return response.data;
           });
+
+
+      //Equipment Put Request  
+            await axios.put(`http://localhost:8080/api/equipment/${equipmentId}`, updatedData, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+      
+        setEquipmentData(prevData => {
+          return prevData.map(equipment => {
+            if (equipment.id === equipmentId) {
+              return {
+                ...equipment,
+                filterLifeDays: 70,
+                filters: updatedFilters.map(filter => ({
+                location: filter.location,
+                length: filter.length,
+                width: filter.width,
+                height: filter.height,
+                dateOfLastChange: new Date().toLocaleDateString('en-US'),
+                })),
+              };
+            }
+            return equipment;
+          });
+        });
+
         } catch (error) {
           console.error('Error updating equipment data:', error);
         }
@@ -111,34 +127,14 @@ function FilterChangeCard({userId}){
                                 </ListGroup>
                             ))}
                             <Card.Text>Due Date: {item.filterLifeDays}</Card.Text>
-                            <Button onClick={() => handleClick(item.id, filter.id)} variant="primary">Change Now</Button>
+                            <Button onClick={() => handleClick(item.id, item.filters)} variant="primary">Change Now</Button>
                         </Card.Body>
                     </Card>
                 ))}
             </CardGroup>
         )
     }
-    // const renderDeck = () => {
-    //     return equipmentData.map(item => (    
-    //       <Card key={item.id} style={{ width: '18rem' }}>
-    //         <Card.Img variant="top" src={item.imageUrl} alt={item.name} />
-    //         <Card.Body>
-    //           <Card.Title>{item.name}</Card.Title>
-      
-    //           {item.filters.map(filter => (
-    //             <ListGroup key={filter.id}>
-    //               <Card.Subtitle>Location: {filter.location}</Card.Subtitle>
-    //               <Card.Text>Filter Size: {filter.length} x {filter.width} x {filter.height}</Card.Text>
-    //               <Card.Text>Date of Last Change: {filter.dateOfLastChange}</Card.Text>
-    //             </ListGroup>
-    //           ))}
-      
-    //           <Card.Text>Due Date: {item.filterLifeDays}</Card.Text>
-    //           <Button variant="primary">Change Now</Button>
-    //         </Card.Body>
-    //       </Card> 
-    //     ));  
-    //   };
+    
 
     return (
         renderDeck()
