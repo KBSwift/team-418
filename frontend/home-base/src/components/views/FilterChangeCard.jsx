@@ -8,13 +8,10 @@ import axios from 'axios';
 
 function FilterChangeCard(){
 
-    // Load Data, putting data into empty array.
-
     const[equipmentData, setEquipmentData] = useState([]);
     const[loading, setLoading] = useState(true);
     const[error, setError] = useState(null);
     
-    // the http request needs to fetch both equipment and filter data. Perhaps create custom query in back end to retrieve info based on user logged in. Example: `http://localhost:8080/api/user/${userId}/equipment-and-filters`
     useEffect(() => {
       loadEquipment();
     }, []);
@@ -42,19 +39,7 @@ function FilterChangeCard(){
         console.error('Error updating equipment:', error);
       }
     };
-    //Change to delete
-    // const handleFilterUpdate = async (filterId, updatedFilter) => {
-    //   try {
-    //     await axios.put(`http://localhost:8080/api/filters/${filterId}`, updatedFilter, {
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //       },
-    //     });
-    //   } catch (error) {
-    //     setError(error);
-    //   }
-    // }
-
+ 
     if(loading) {
         return <p>Loading...</p>
     }
@@ -111,12 +96,12 @@ function FilterChangeCard(){
     };
     
        
-    //TO-DO Test data pull and data structure
+    
 
-    // renderDeck function will map over data array
-    // TO-DO Needs testing for data load 
-    // TO-DO Import Card into app.jsx(or relevant file) & configure routing
-    // TO-DO Have butt
+    
+   
+    
+    // TO-DO Fix Due date to calculate lifespan+lastchanged?
 
 
     const renderDeck = () => {
@@ -131,11 +116,15 @@ function FilterChangeCard(){
                                     <Card.Subtitle>Location: {filter.location}</Card.Subtitle>
                                     <Card.Text>Filter Size: {filter.length} x {filter.width} x {filter.height}</Card.Text>
                                     <Card.Text>Date of Last Change: {filter.dateOfLastChange}</Card.Text>
+                                    <Card.Text>Due Date: {new Date(new Date(filter.dateOfLastChange).setDate(new Date(filter.dateOfLastChange).getDate() + item.filterLifeDays)).toISOString().split("T")[0]}
+                                    </Card.Text>
+
+
                                 </ListGroup>
                             ))}
                              {/* Due date should equal filterlifedays + date of last change */}
                              {/* Research Calender Class in Java */}
-                            <Card.Text>Due Date: {item.filterLifeDays}</Card.Text>
+                            
                             <Button onClick={() => handleClick(item.id)} variant="primary">Change Now</Button>
                         </Card.Body>
                     </Card>
