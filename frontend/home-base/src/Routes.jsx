@@ -5,7 +5,7 @@ import NavigationBar from './components/NavigationBar';
 import Landing from './components/views/Landing';
 import Signup from './components/views/Signup';
 import Edit from './components/views/Edit';
-import FilterChangeCard from './components/FilterChangeCard';
+import FilterChangeCard from './components/views/FilterChangeCard';
 import EditFilter from './components/views/EditFilter';
 
 const Routing = () => {

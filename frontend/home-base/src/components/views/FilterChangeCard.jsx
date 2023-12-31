@@ -6,7 +6,7 @@ import { CardGroup, ListGroup } from 'react-bootstrap';
 import axios from 'axios';
 
 
-function FilterChangeCard({userId}){
+function FilterChangeCard(){
 
     // Load Data, putting data into empty array.
 
@@ -42,6 +42,18 @@ function FilterChangeCard({userId}){
         console.error('Error updating equipment:', error);
       }
     };
+    //Change to delete
+    // const handleFilterUpdate = async (filterId, updatedFilter) => {
+    //   try {
+    //     await axios.put(`http://localhost:8080/api/filters/${filterId}`, updatedFilter, {
+    //       headers: {
+    //         'Content-Type': 'application/json',
+    //       },
+    //     });
+    //   } catch (error) {
+    //     setError(error);
+    //   }
+    // }
 
     if(loading) {
         return <p>Loading...</p>
@@ -50,29 +62,54 @@ function FilterChangeCard({userId}){
     if(error) {
         return <p>Encoutered error: {error.message}. Please try again.</p>
     }
-       
-    const handleClick = async (equipmentId) => {
-      const selectedEquipment = equipmentData.find(equipment => equipment.id === equipmentId);
     
+    const handleClick = async (equipmentId) => {
+      const selectedEquipment = equipmentData.find((equipment) => equipment.id === equipmentId);
+      const filterLocations = [];
+      const newFilterArray = [];
+    
+      // Step 1: Delete all existing filters
+      for (const filter of selectedEquipment.filters) {
+        filterLocations.push(filter.location);
+        await axios.delete(`http://localhost:8080/api/filters/${filter.id}`);
+      }
+    
+      // Step 2: Create new filters with updated dimensions and dateOfLastChange
+      for (const location of filterLocations) {
+        const newFilter = {
+          location: location,
+          length: selectedEquipment.filters[0].length,  // Assuming all filters have the same dimensions
+          width: selectedEquipment.filters[0].width,
+          height: selectedEquipment.filters[0].height,
+          dateOfLastChange: new Date().toISOString().split("T")[0],
+        };
+        newFilterArray.push(newFilter);
+      }
+    
+      // Step 3: Update equipment data
       const updatedData = {
         id: selectedEquipment.id,
         name: selectedEquipment.name,
-        filters: selectedEquipment.filters.map(filter => ({
-          id: filter.id,
-          location: filter.location,
-          length: filter.length,
-          width: filter.width,
-          height: filter.height,
-          dateOfLastChange: new Date().toISOString().split("T")[0],
-        })),
+        filters: newFilterArray,
         filterLifeDays: 60,
       };
     
+      // Post new filters
+      for (const filter of newFilterArray) {
+        await axios.post(`http://localhost:8080/api/equipment/${equipmentId}/filters`, filter, {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+      }
+    
+      // Update equipment data
       await handleUpdate(equipmentId, updatedData);
     
-      // Instead of using setEquipmentData, fetch the updated data
+      // Fetch the updated data
       await loadEquipment();
     };
+    
        
     //TO-DO Test data pull and data structure
 
@@ -96,8 +133,10 @@ function FilterChangeCard({userId}){
                                     <Card.Text>Date of Last Change: {filter.dateOfLastChange}</Card.Text>
                                 </ListGroup>
                             ))}
+                             {/* Due date should equal filterlifedays + date of last change */}
+                             {/* Research Calender Class in Java */}
                             <Card.Text>Due Date: {item.filterLifeDays}</Card.Text>
-                            <Button onClick={() => handleClick(item.id, item.filters)} variant="primary">Change Now</Button>
+                            <Button onClick={() => handleClick(item.id)} variant="primary">Change Now</Button>
                         </Card.Body>
                     </Card>
                 ))}
