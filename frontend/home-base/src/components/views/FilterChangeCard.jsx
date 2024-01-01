@@ -104,7 +104,7 @@ function FilterChangeCard(){
     
    
     
-    // TO-DO Fix Due date to calculate lifespan+lastchanged?
+    
 
     const renderDeck = () => {
       return (
