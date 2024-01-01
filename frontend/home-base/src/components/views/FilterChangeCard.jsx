@@ -139,35 +139,6 @@ function FilterChangeCard(){
       )
   }
 
-    // const renderDeck = () => {
-    //     return (
-          
-    //         <CardGroup>
-              
-    //             {equipmentData.map((item) => (
-    //                 <Card key={item.id}>
-    //                     <Card.Body>
-    //                         <Card.Title>{item.name}</Card.Title>
-    //                         {item.filters.map(filter => (
-    //                             <ListGroup key={filter.id}>
-    //                                 <Card.Subtitle>Location: {filter.location}</Card.Subtitle>
-    //                                 <ListGroup.Item>Filter Size: {filter.length} x {filter.width} x {filter.height}</ListGroup.Item>
-    //                                 <ListGroup.Item>Date of Last Change: {filter.dateOfLastChange}</ListGroup.Item>
-    //                                 <ListGroup.Item>Due Date: {new Date(new Date(filter.dateOfLastChange).setDate(new Date(filter.dateOfLastChange).getDate() + item.filterLifeDays)).toISOString().split("T")[0]}
-    //                                 </ListGroup.Item>
-    //                             </ListGroup>
-    //                         ))}
-    //                         <Button onClick={() => handleClick(item.id)} variant="primary">Change Now</Button>
-    //                     </Card.Body>
-    //                 </Card>
-    //             ))}
-              
-    //         </CardGroup>
-          
-    //     )
-    // }
-    
-
     return (
         renderDeck()
     );
