@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HomeBase from '../assets/HomeBase.svg';
-import '../components/styles/NavigationBarStyle.css';
-
+// import '../components/styles/NavigationBarStyle.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const NavigationBar = () => {
@@ -16,7 +16,7 @@ const NavigationBar = () => {
           </a>
       </nav>
       </a>
-      <button
+      {/* <button
         className="navbar-toggler"
         type="button"
         data-toggle="collapse"
@@ -26,41 +26,29 @@ const NavigationBar = () => {
         aria-label="Toggle navigation"
       >
         <span className="navbar-toggler-icon"></span>
-      </button>
+      </button> */}
 
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      {/* Cant get dropdown menu to work  */}
+
+      {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"> */}
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
-            <a className="nav-link" href="/signup">
-              Sign-up 
+            <a className="nav-link" href="/filter-change">
+              Replace Filter 
             </a>
           </li>
           <li className="nav-item">
-            <a className="nav-link" href="/login">
-              Log-in
+            <a className="nav-link" href="/account-settings">
+              Account
             </a>
-          </li>
-          <li className="nav-item dropdown">
-            <a
-              className="nav-link dropdown-toggle"
-              href="/edit"
-              role="button"
-              data-toggle="dropdown"
-              aria-expanded="false"
-            >
-              Settings
+        </li>
+        <li className="nav-item">
+            <a className="nav-link" href="/edit">
+              Edit
             </a>
-            <div className="dropdown-menu">
-              <a className="dropdown-item" href="/profile">
-                Profile
-              </a>
-              <a className="dropdown-item" href="/filters">
-                Filters
-              </a>
-            </div>
-          </li>
+        </li>
         </ul>
-      </div>
+      {/* </div> */}
     </nav>
   );
   
@@ -70,20 +58,3 @@ const NavigationBar = () => {
 
 export default NavigationBar;
 
-{/*  export default function NavigationBar () {
-  return <nav className='nav'>
-       <a href='/' className='HomeBase'>
-       <img src= {HomeBase} alt="HomeBase Logo" className='nav-logo' />
-         HomeBase
-       </a>
-       <ul>
-        <li>
-           <a href="/login">Log-in</a>
-         </li>
-         <li>
-          <a href="/signup">Sign-up</a>
-         </li>
-       </ul>
-
-   </nav>
- } */}
