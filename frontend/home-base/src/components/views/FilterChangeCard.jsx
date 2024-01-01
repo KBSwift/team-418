@@ -2,8 +2,11 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { CardGroup, ListGroup } from 'react-bootstrap';
+import CardGroup from 'react-bootstrap/CardGroup';
+import ListGroup from 'react-bootstrap/ListGroup';
+import '../styles/FilterChangeCardStyles.css';
 import axios from 'axios';
+import { Container, ListGroupItem } from 'react-bootstrap';
 
 
 function FilterChangeCard(){
@@ -103,35 +106,66 @@ function FilterChangeCard(){
     
     // TO-DO Fix Due date to calculate lifespan+lastchanged?
 
-
     const renderDeck = () => {
-        return (
-            <CardGroup>
-                {equipmentData.map((item) => (
-                    <Card key={item.id} style={{ width: '18rem'}}>
-                        <Card.Body>
-                            <Card.Title>{item.name}</Card.Title>
+      return (
+        <div>
+          <CardGroup>           
+              {equipmentData.map((item) => (
+                  <Card key={item.id} border="info" style={{ width: '18rem', borderRadius: '20px', padding: 0, backgroundColor: 'rgba(255, 255, 255, .1)'}}>
+                      <Card.Body>
+                          <Card.Title style={{ fontWeight: 'bold'}}>{item.name}</Card.Title>
+                          <div>
                             {item.filters.map(filter => (
-                                <ListGroup key={filter.id}>
-                                    <Card.Subtitle>Location: {filter.location}</Card.Subtitle>
-                                    <Card.Text>Filter Size: {filter.length} x {filter.width} x {filter.height}</Card.Text>
-                                    <Card.Text>Date of Last Change: {filter.dateOfLastChange}</Card.Text>
-                                    <Card.Text>Due Date: {new Date(new Date(filter.dateOfLastChange).setDate(new Date(filter.dateOfLastChange).getDate() + item.filterLifeDays)).toISOString().split("T")[0]}
-                                    </Card.Text>
+                              <ListGroup key={filter.id} className="list-group-flush">
+                                  <ListGroup.Item style={{ fontWeight: 'bold', backgroundColor: 'rgba(0, 0, 255, .1)'}}>Location: {filter.location}</ListGroup.Item>
+                                  <ListGroup.Item style={{backgroundColor: 'rgba(125, 125, 255, .1)'}}>Filter Size: {filter.length} x {filter.width} x {filter.height}</ListGroup.Item>
+                                  <ListGroup.Item style={{backgroundColor: 'rgba(125, 125, 255, .1)'}}>Date of Last Change: {filter.dateOfLastChange}</ListGroup.Item>
+                                  <ListGroup.Item style={{backgroundColor: 'rgba(125, 125, 255, .1)'}}>Due Date: {new Date(new Date(filter.dateOfLastChange).setDate(new Date(filter.dateOfLastChange).getDate() + item.filterLifeDays)).toISOString().split("T")[0]}
+                                  </ListGroup.Item>
+                              </ListGroup>
+                          ))}
+                          </div>
+                          <div className='text-center'>
+                            <Button onClick={() => handleClick(item.id)} variant="success">Change Now</Button>
+                            </div>                          
+                          
+                      </Card.Body>
+                  </Card>
+              ))}
+            
+          </CardGroup> 
+        </div>
+                          
+      )
+  }
 
-
-                                </ListGroup>
-                            ))}
-                             {/* Due date should equal filterlifedays + date of last change */}
-                             {/* Research Calender Class in Java */}
-                            
-                            <Button onClick={() => handleClick(item.id)} variant="primary">Change Now</Button>
-                        </Card.Body>
-                    </Card>
-                ))}
-            </CardGroup>
-        )
-    }
+    // const renderDeck = () => {
+    //     return (
+          
+    //         <CardGroup>
+              
+    //             {equipmentData.map((item) => (
+    //                 <Card key={item.id}>
+    //                     <Card.Body>
+    //                         <Card.Title>{item.name}</Card.Title>
+    //                         {item.filters.map(filter => (
+    //                             <ListGroup key={filter.id}>
+    //                                 <Card.Subtitle>Location: {filter.location}</Card.Subtitle>
+    //                                 <ListGroup.Item>Filter Size: {filter.length} x {filter.width} x {filter.height}</ListGroup.Item>
+    //                                 <ListGroup.Item>Date of Last Change: {filter.dateOfLastChange}</ListGroup.Item>
+    //                                 <ListGroup.Item>Due Date: {new Date(new Date(filter.dateOfLastChange).setDate(new Date(filter.dateOfLastChange).getDate() + item.filterLifeDays)).toISOString().split("T")[0]}
+    //                                 </ListGroup.Item>
+    //                             </ListGroup>
+    //                         ))}
+    //                         <Button onClick={() => handleClick(item.id)} variant="primary">Change Now</Button>
+    //                     </Card.Body>
+    //                 </Card>
+    //             ))}
+              
+    //         </CardGroup>
+          
+    //     )
+    // }
     
 
     return (
