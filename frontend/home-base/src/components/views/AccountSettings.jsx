@@ -7,9 +7,7 @@ const AccountSettings = () => {
     const userEmail = 'examplemail@ex.com';
 
   return (
-    <div className="container-fluid">
       <main className="py-6 bg-surface-secondary">
-        <div className="container-fluid">
           <div className="row">
             <div className="mx-auto">
               <div className="mb-4">
@@ -31,9 +29,7 @@ const AccountSettings = () => {
               </form>
             </div>
           </div>
-        </div>
       </main>
-    </div>
   );
 };
 
