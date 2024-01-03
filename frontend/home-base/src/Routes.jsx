@@ -8,6 +8,7 @@ import Edit from './components/views/Edit';
 import FilterChangeCard from './components/views/FilterChangeCard';
 import EditFilter from './components/views/EditFilter';
 import AccountSettings from './components/views/AccountSettings'
+import { NotificationHistory } from './components/views/NotificationHistory';
 
 const Routing = () => {
   return (
@@ -19,6 +20,7 @@ const Routing = () => {
         <Route path="/filter-change" element={<FilterChangeCard/>} />
         <Route path="/editFilter/:id" element={<EditFilter />} />
         <Route path="/account-settings" element={<AccountSettings/>} />
+        <Route path="/notification-history" element={<NotificationHistory />} />
       </Routes>
     </Router>
   );
