@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Table } from 'react-bootstrap';
+import '../styles/NotificationHistoryStyles.css';
 
 export const NotificationHistory = () => {
 
