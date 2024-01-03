@@ -11,6 +11,8 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Filter extends AbstractEntity{
@@ -109,5 +111,39 @@ public class Filter extends AbstractEntity{
                 height +
                 " for " + equipment.getName() +
                 ".";
+    }
+
+    //Calculate filter due date with conversion to return date
+    public Date calculateDueDate() {
+        if (dateOfLastChange == null || equipment == null || equipment.getFilterLifeDays() <= 0) {
+            return null;
+        }
+
+        long filterLifeInMillis = equipment.getFilterLifeDays() * 24 * 60 * 60 * 1000L;
+        long dueDateInMillis = dateOfLastChange.getTime() + filterLifeInMillis;
+
+        return new Date(dueDateInMillis);
+    }
+
+    //Generate list of filters due for change
+    public static List<Filter> getFiltersToChangeInNext7Days(List<Filter> filters) {
+        List<Filter> filtersToChange = new ArrayList<>();
+
+        for (Filter filter : filters) {
+            Date dueDate = filter.calculateDueDate();
+            if (dueDate != null && isWithinNext7Days(dueDate)) {
+                filtersToChange.add(filter);
+            }
+        }
+        return filtersToChange;
+    }
+
+    //Boolean to check if due within next 7 days
+    private static boolean isWithinNext7Days(Date date) {
+        long sevenDaysInMillis = 7 * 24 * 60 * 60 * 1000L;
+        long nowInMillis = System.currentTimeMillis();
+        long dueDateInMillis = date.getTime();
+
+        return dueDateInMillis >= nowInMillis && dueDateInMillis <= nowInMillis + sevenDaysInMillis;
     }
 }
