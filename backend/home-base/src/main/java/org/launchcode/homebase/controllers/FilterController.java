@@ -4,6 +4,7 @@ import org.launchcode.homebase.data.EquipmentRepository;
 import org.launchcode.homebase.data.FilterRepository;
 import org.launchcode.homebase.exception.ResourceNotFoundException;
 import org.launchcode.homebase.models.Filter;
+import org.launchcode.homebase.service.EquipmentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,9 @@ public class FilterController {
 
     @Autowired
     private FilterRepository filterRepository;
+
+    @Autowired
+    private EquipmentService equipmentService;
 
     @GetMapping("/equipment/{equipmentId}/filters")
     public ResponseEntity<List<Filter>> getAllFiltersByEquipmentId(@PathVariable(value = "equipmentId") int equipmentId) {
@@ -76,4 +80,17 @@ public class FilterController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    //Generate search string by filter id
+    @GetMapping("/filters/{id}/search")
+    public ResponseEntity<String> getSearchStringForFilter(@PathVariable("id") int id) {
+        String searchString = equipmentService.buildSearchString(id);
+        return ResponseEntity.ok(searchString);
+    }
+
+    //Generate arraylist of search strings for each filter by equipment id
+    @GetMapping("/equipment/{equipmentId}/filters/search")
+    public ResponseEntity<List<String>> getSearchStringsForEquipment(@PathVariable("equipmentId") int equipmentId) {
+        List<String> searchStrings = equipmentService.buildSearchStringsForEquipment(equipmentId);
+        return ResponseEntity.ok(searchStrings);
+    }
 }
