@@ -1,0 +1,25 @@
+.custom-card{
+    border: 6px solid rgb(128, 146, 182);
+    border-radius: 10px;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.466);
+    padding: 10px;
+    text-align: center;
+    max-width: 350px;
+    background-color: rgba(255, 255, 255, .6);
+}
+
+.custom-card-title{
+    font-weight: bold;
+    font-size: x-large;
+}
+
+.custom-card-subtitle{
+    font-weight:570;
+    font-size: large;
+    background-color: rgb(128, 146, 182, .5);
+}
+
+.custom-listgroup-item{
+    background-color: rgba(191, 200, 207, 0.267);
+    padding: 10px;
+}
