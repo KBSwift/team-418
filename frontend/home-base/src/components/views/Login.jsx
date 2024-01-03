@@ -5,6 +5,16 @@ export default function Login() {
     const [email, checkEmail] = useState('');
     const [password, checkPassword] = useState('');
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    
+    const handleLogin = () => {
+        if (email === 'test' && password === 'test') {
+            setIsLoggedIn(true);
+        } else {
+            console.error('Email or Password do not match');
+        }
+    };
+
     const handleEmailCheck = (event) => {
         checkEmail(event.target.value);
     };
@@ -25,6 +35,7 @@ export default function Login() {
             console.log("Test", response.data.message);
 
             if (response.data.success) {
+                handleLogin();
                 window.location.href = '/edit';
             } else {
                 console.error('Email or Password do not match', response.data.message);

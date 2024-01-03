@@ -7,7 +7,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 const NavigationBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+    <nav className="navbar navbar-expand-sm navbar-light bg-light fixed-top">
       <a className="navbar-brand" href="/">
         <nav class="navbar navbar-light bg-light">
           <a class="navbar-brand" href="/">
