@@ -22,6 +22,7 @@ export default function Signup() {
         //     return;
         // }
         // setName(newName);
+        //merge items comment
         setName(event.target.value);
     }
 
