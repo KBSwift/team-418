@@ -1,13 +1,18 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import HomeBase from '../assets/HomeBase.svg';
-// import '../components/styles/NavigationBarStyle.css';
+import '../components/styles/NavigationBarStyle.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 
 const NavigationBar = () => {
+
+  const navbarStyle = {
+    paddingLeft: '1rem' 
+  }; //can add specific in-line styling to the navbar here 
+
   return (
-    <nav className="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+    <nav className="navbar navbar-expand-sm navbar-light bg-light fixed-top" style={navbarStyle}>
       <a className="navbar-brand" href="/">
         <nav class="navbar navbar-light bg-light">
           <a class="navbar-brand" href="/">
