@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import CardGroup from 'react-bootstrap/CardGroup';
 import ListGroup from 'react-bootstrap/ListGroup';
-//import '../styles/FilterChangeCardStyles.css';
+import '../styles/FilterChangeCardStyles.css';
 import axios from 'axios';
 
 

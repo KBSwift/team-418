@@ -43,6 +43,11 @@ const NavigationBar = () => {
             </a>
           </li>
           <li className="nav-item">
+            <a className="nav-link" href="/notification-history">
+              Notification History 
+            </a>
+          </li>
+          <li className="nav-item">
             <a className="nav-link" href="/account-settings">
               Account
             </a>
