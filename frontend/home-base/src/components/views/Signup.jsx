@@ -11,18 +11,17 @@ export default function Signup() {
     const [name, setName] = useState('');
     const [formSubmitted, setFormSubmitted] = useState(false);
 
-    // const handleNameChange = (event) => {
-    //     const newName = event.target.value;
+    const handleNameChange = (event) => {
+        const newName = event.target.value;
         
-    //     if (formSubmitted) {
-    //         if (/[^a-zA-Z0-9 ]/.test(newName) || newName.length < 4 || newName.length > 20) {
-    //             alert("No special char/name bt 4-20 char");
-    //         }
-    //     } else {
-    //         setName(newName);
-    //     }
-       
-    // }
+        
+            if (/[^a-zA-Z0-9 ]/.test(newName) || newName.length < 4 || newName.length > 20) {
+                alert("No special char/name bt 4-20 char");
+                return;
+            }
+            setName(newName);
+        
+    }
 
     const handlePasswordChange = (event) => {
         setPassword(event.target.value);
@@ -42,6 +41,13 @@ export default function Signup() {
     }
 
     const handleSubmit = (event) => {
+
+        if (/[^a-zA-Z0-9 ]/.test(newName) || newName.length < 4 || newName.length > 20) {
+            alert("No special char/name bt 4-20 char");
+            event.preventDefault();
+            return;
+        }
+
         setFormSubmitted(true);
 
         if (!isValidEmail(email)) {
