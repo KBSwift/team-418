@@ -43,7 +43,7 @@ export default function EditEquipmentTable() {
 
 
   return (
-    <div className="table-pane">
+    <div className="equipment-table-pane">
       <Table striped bordered hover>
         <thead>
           <tr>

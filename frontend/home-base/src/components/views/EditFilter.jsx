@@ -126,6 +126,10 @@ const EditFilter = () => {
         }
       };
 
+      const cancelEdit = () => {
+        navigate("/edit");
+      }
+
   return (
     <div>
         <form>
@@ -190,7 +194,8 @@ const EditFilter = () => {
                 />
                 {errors.dateOfLastChange && <div className="invalid-feedback">{errors.dateOfLastChange}</div>}
             </div>
-            <button className = "btn btn-success" onClick={saveFilter}>Submit</button>    
+            <button className = "btn btn-success mr-2" onClick={saveFilter}>Submit</button>    
+            <button className="btn btn-secondary" onClick={cancelEdit}>Cancel</button>
         </form>
     </div>
   );
