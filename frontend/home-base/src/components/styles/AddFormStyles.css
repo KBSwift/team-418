@@ -1,0 +1,21 @@
+.equipment-form {
+    height: auto;
+    width: auto; 
+    margin-top: -40px;
+}
+
+.filter-form {
+    height: auto;
+    width: auto;
+    margin-top: 20px;
+}
+
+@media (max-width: 768px) {
+    .filter-form {
+        margin-top: 80px;
+    }
+
+    .equipment-form {
+        margin-top: 100px;
+    }
+}
