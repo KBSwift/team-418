@@ -43,7 +43,7 @@ export default function EditEquipmentTable() {
 
 
   return (
-    <div className="table-pane">
+    <div className="equipment-table-pane">
       <Table striped bordered hover>
         <thead>
           <tr>
@@ -60,7 +60,7 @@ export default function EditEquipmentTable() {
           </tr>
         </thead>
         <tbody>
-          {equipment.map((equipmentItem) =>
+          {Array.isArray(equipment) && equipment.map((equipmentItem) =>
             equipmentItem.filters.map((filter) => (
               <tr key={filter.id}>
                 <td>{equipmentItem.id}</td>

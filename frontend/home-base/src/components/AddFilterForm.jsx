@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import './styles/AddFormStyles.css';
 
 const AddFilterForm = () => {
 
@@ -134,9 +135,9 @@ const AddFilterForm = () => {
   };
 
   return (
-    <div>
+    <div className="filter-form">
       <form>
-        <div>
+        <div className="form-group">
           <input
             type="hidden"
             name="id"
@@ -157,7 +158,7 @@ const AddFilterForm = () => {
             <div className="invalid-feedback">{errors.location}</div>
           )}
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="length">Filter Length:</label>
           <input
             type="number"
@@ -171,7 +172,7 @@ const AddFilterForm = () => {
             <div className="invalid-feedback">{errors.length}</div>
           )}
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="width">Filter Width:</label>
           <input
             type="number"
@@ -185,7 +186,7 @@ const AddFilterForm = () => {
             <div className="invalid-feedback">{errors.width}</div>
           )}
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="height">Filter Height:</label>
           <input
             type="number"
@@ -199,7 +200,7 @@ const AddFilterForm = () => {
             <div className="invalid-feedback">{errors.height}</div>
           )}
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="dateOfLastChange">
             Last Date Filter Was Changed:
           </label>
@@ -229,7 +230,7 @@ const AddFilterForm = () => {
             onChange={handleChange}
           >
             <option value="Select Equipment">Select Equipment</option>
-            {equipment.map((item) => {
+            {Array.isArray(equipment) && equipment.map((item) => {
               return (
                 <option key={item.id} value={item.id}>
                   {item.name}

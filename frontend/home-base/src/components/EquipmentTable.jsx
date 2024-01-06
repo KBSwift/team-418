@@ -51,7 +51,7 @@ const EquipmentTable = () => {
           </tr>
         </thead>
         <tbody>
-          {equipment.map((equipmentItem) => (
+          {Array.isArray(equipment) && equipment.map((equipmentItem) => (
             <tr key={equipmentItem.id}>
               <td>{equipmentItem.id}</td>
               <td>{equipmentItem.name}</td>

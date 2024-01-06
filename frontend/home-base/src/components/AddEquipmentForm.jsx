@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import EquipmentTable from "./EquipmentTable";
+import './styles/AddFormStyles.css';
 
 const AddEquipmentForm = () => {
   
@@ -69,10 +70,10 @@ const AddEquipmentForm = () => {
   };
 
   return (
-    <div>
+    <div className="equipment-form">
       <EquipmentTable />
       <form>
-        <div>
+        <div className="form-group">
           <label htmlFor="name">Equipment Name:</label>
           <input
             type="text"
@@ -84,7 +85,7 @@ const AddEquipmentForm = () => {
           />
           {errors.name && <div className="invalid-feedback">{errors.name}</div>}
         </div>
-        <div>
+        <div className="form-group">
           <label htmlFor="filterLifeDays">Filter Life in Days:</label>
           <input
             type="number"
