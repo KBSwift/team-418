@@ -60,7 +60,7 @@ export default function EditEquipmentTable() {
           </tr>
         </thead>
         <tbody>
-          {equipment.map((equipmentItem) =>
+          {Array.isArray(equipment) && equipment.map((equipmentItem) =>
             equipmentItem.filters.map((filter) => (
               <tr key={filter.id}>
                 <td>{equipmentItem.id}</td>

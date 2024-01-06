@@ -230,7 +230,7 @@ const AddFilterForm = () => {
             onChange={handleChange}
           >
             <option value="Select Equipment">Select Equipment</option>
-            {equipment.map((item) => {
+            {Array.isArray(equipment) && equipment.map((item) => {
               return (
                 <option key={item.id} value={item.id}>
                   {item.name}
