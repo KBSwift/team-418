@@ -1,48 +1,34 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 export default function Login() {
-    const [email, checkEmail] = useState('');
-    const [password, checkPassword] = useState('');
-
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
-    
-    const handleLogin = () => {
-        if (email === 'test' && password === 'test') {
-            setIsLoggedIn(true);
-        } else {
-            console.error('Email or Password do not match');
-        }
-    };
-
-    const handleEmailCheck = (event) => {
-        checkEmail(event.target.value);
-    };
-
-    const handlePasswordCheck = (event) => {
-        checkPassword(event.target.value);
-    };
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         try {
-            const response = await axios.post('http://localhost:5173', {  //need to change to what is being hosted with the data 
-                email,
-                password,
+            const response = await axios.post('http://localhost:8080/api/login', {
+                email: email,
+                password: password,
             });
+            console.log(response.data);
 
-            console.log("Test", response.data.message);
-
-            if (response.data.success) {
-                handleLogin();
-                window.location.href = '/edit';
+            if (response.status === 200) {
+                // Navigate to '/edit' on successful login
+                navigate('/edit');
             } else {
-                console.error('Email or Password do not match', response.data.message);
+                // Show an alert for incorrect credentials
+                alert('Email or Password do not match');
             }
+            
         } catch (error) {
             console.error('Error has occured', error.response.data.message);
+            alert('An error has occurred while logging in.')
         }
+        
     };
 
     return (
@@ -51,13 +37,13 @@ export default function Login() {
                 <div className="formInfo">
                     <label>
                         Email:
-                        <input type="email"  value={email} onChange={handleEmailCheck}/>
+                        <input type="email" name="email" value={email} onChange={(e) => setEmail(e.target.value)}/>
                     </label>
                 </div>
                 <div className="formInfo">
                     <label>
                         Password:
-                        <input type="password" value={password} onChange={handlePasswordCheck} />
+                        <input type="password" name="password" value={password} onChange={(e) => setPassword(e.target.value)} />
                     </label>
                 </div>
                     <input type="submit" value="Submit" />
