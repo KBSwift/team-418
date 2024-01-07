@@ -77,7 +77,7 @@ const NavigationBar = () => {
               </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="http://localhost:8080/api/logout/">
+          <a className="nav-link" href="http://localhost:5173/api/logout/">
             Logout
           </a>
         </li>
