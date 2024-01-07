@@ -1,7 +1,6 @@
 package org.launchcode.homebase.service;
 
-import jakarta.annotation.PostConstruct;
-import org.hibernate.cfg.Environment;
+
 import org.launchcode.homebase.data.EmailNotificationRepository;
 import org.launchcode.homebase.data.EquipmentRepository;
 import org.launchcode.homebase.data.FilterRepository;
@@ -14,12 +13,15 @@ import org.springframework.stereotype.Service;
 import com.sendgrid.helpers.mail.Mail;
 import com.sendgrid.helpers.mail.objects.Content;
 import com.sendgrid.helpers.mail.objects.Email;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import java.io.IOException;
-import java.util.Map;
 import com.sendgrid.*;
 
 import java.util.Date;
+import java.util.List;
+
 @Service
 public class TestEmailService {
     @Autowired
@@ -31,27 +33,41 @@ public class TestEmailService {
     @Autowired
     private FilterRepository filterRepository;
 
+    @Autowired
+    private FilterService filterService;
+
+//    @Autowired
+//    private UserRepository userRepository;
+
     private final SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
 
     public void sendEmail(int equipmentId, int filterId, String to, String subject, String message) throws Exception {
         //Code for sendEmail
         try {
-            Email from = new Email("kenjigw@gmail.com");
-            Email toEmail = new Email(to);
-            Content content = new Content("text/plain", message);
-            Mail mail = new Mail(from, subject, toEmail, content);
+//            Optional<User> userOptional = userRepository.findById(userId);
 
-            Request request = new Request();
-            request.setMethod(Method.POST);
-            request.setEndpoint("mail/send");
-            request.setBody(mail.build());
-            Response response = sg.api(request);
+            if (userOptional.isPresent()) {
+                String to = userOptional.get().getEmail();
+                Email from = new Email("kenjigw@gmail.com");
+                Email toEmail = new Email(to);
+                Content content = new Content("text/plain", message);
+                Mail mail = new Mail(from, subject, toEmail, content);
 
-            System.out.println(response.getStatusCode());
-            System.out.println(response.getBody());
-            System.out.println(response.getHeaders());
+                Request request = new Request();
+                request.setMethod(Method.POST);
+                request.setEndpoint("mail/send");
+                request.setBody(mail.build());
+                Response response = sg.api(request);
 
-            logEmailNotification(equipmentId, filterId, to, subject, message);
+                System.out.println(response.getStatusCode());
+                System.out.println(response.getBody());
+                System.out.println(response.getHeaders());
+
+                logEmailNotification(equipmentId, filterId, to, subject, message);
+            } else {
+                throw new ResourceNotFoundException("User not found with id = " + userId);
+            }
+
         } catch (IOException ex) {
             throw new Exception("Failed to send email: " + ex.getMessage());
         }
@@ -76,4 +92,41 @@ public class TestEmailService {
         emailNotificationRepository.save(emailNotification);
 
     }
+
+    @Scheduled(cron = "0 0 5 * * ?") // Run every day at 5 am
+    public void sendEmailsForDueFilters() {
+        try {
+            List<Filter> filtersDueForChange = filterService.getFiltersToChangeInNext7Days();
+            for (Filter filter : filtersDueForChange) {
+                sendEmailForFilterChange(filter);
+            }
+        } catch (Exception ex) {
+            System.err.println("Error sending emails for due filters: " + ex.getMessage());
+        }
+    }
+
+    private void sendEmailForFilterChange(Filter filter) throws Exception {
+        // Create email content and subject
+        String emailContent = "Your filter for " + filter.getEquipment().getName() + " is due for change.";
+        String emailSubject = "Filter Change Reminder";
+
+        // Send email
+        sendEmail(
+                filter.getEquipment().getId(),
+                filter.getId(),
+                "recipient@example.com", // Replace with the actual recipient email
+                emailSubject,
+                emailContent
+        );
+
+        // Log email notification
+        logEmailNotification(
+                filter.getEquipment().getId(),
+                filter.getId(),
+                "recipient@example.com", // Replace with the actual recipient email
+                emailSubject,
+                emailContent
+        );
+    }
+}
 }
