@@ -1,4 +1,4 @@
-package org.launchcode.homebase.models.dto;
+package org.launchcode.homebase.models.DTO;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -7,17 +7,18 @@ import jakarta.validation.constraints.Size;
 
 public class LoginFormDTO {
 
+    @Email
     @NotNull
     @NotBlank
-    @Email
+    @Size(min = 3, max = 20, message = "Invalid Email")
     private String email;
 
     @NotNull
     @NotBlank
-    @Size(min = 2, max = 30, message = "Invalid password. Must be between 2 and 30 characters.")
+    @Size(min = 5, max = 30, message = "Invalid password. Must be between 4 and 20 characters.")
     private String password;
 
-    public String getEmail() {
+    public String getEmail () {
         return email;
     }
 
@@ -32,5 +33,4 @@ public class LoginFormDTO {
     public void setPassword(String password) {
         this.password = password;
     }
-
 }
