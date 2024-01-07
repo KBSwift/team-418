@@ -4,20 +4,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.launchcode.homebase.data.UserRepository;
-import org.launchcode.homebase.models.DTO.LoginFormDTO;
-import org.launchcode.homebase.models.DTO.RegisterFormDTO;
 import org.launchcode.homebase.models.User;
+import org.launchcode.homebase.models.dto.LoginFormDTO;
+import org.launchcode.homebase.models.dto.RegisterFormDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@Controller
+@RestController
+@CrossOrigin(origins = "http://localhost:5173/")
+@RequestMapping("/api")
 public class AuthenticationController {
 
     @Autowired
@@ -41,76 +41,72 @@ public class AuthenticationController {
         session.setAttribute(userSessionKey, user.getId());
     }
 
-    @GetMapping("/register")
-    public String displayRegistrationForm(Model model) {
-        model.addAttribute(new RegisterFormDTO());
-        model.addAttribute("title", "Register");
-        return "register";
+    @GetMapping("/user")
+    public ResponseEntity<User> getCurrentUser(HttpSession session) {
+        User user = getUserFromSession(session);
+
+        if (user == null) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
+        }
+
+        return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
     @PostMapping("/register")
-    public String processRegistrationForm(@ModelAttribute @Valid RegisterFormDTO registerFormDTO, Errors errors, HttpServletRequest request, Model model) {
+    public ResponseEntity<User> registerUser(@RequestBody @Valid RegisterFormDTO registerFormDTO, Errors errors, HttpServletRequest request) {
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Register");
-            return "register";
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        User existingUser = userRepository.findByEmail(registerFormDTO.getEmail());
+
+        User existingUser = userRepository.findByUsername(registerFormDTO.getUsername());
 
         if (existingUser != null) {
-            errors.rejectValue("username", "email.alreadyexists", "That email with an account already exists");
-            model.addAttribute("title", "Register");
-            return "register";
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
+
         String password = registerFormDTO.getPassword();
         String verifyPassword = registerFormDTO.getVerifyPassword();
+
         if (!password.equals(verifyPassword)) {
-            errors.rejectValue("password", "passwords.mismatch", "Passwords do not match");
-            model.addAttribute("title", "Register");
-            return "register";
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        User newUser = new User(registerFormDTO.getEmail(), registerFormDTO.getPassword());
+
+        User newUser = new User(registerFormDTO.getUsername(), registerFormDTO.getEmail(), registerFormDTO.getPassword());
+        newUser.setUsername(registerFormDTO.getUsername());
         userRepository.save(newUser);
+
         setUserInSession(request.getSession(), newUser);
 
-        return "redirect:";
+        return new ResponseEntity<>(newUser, HttpStatus.CREATED);
     }
 
     @GetMapping("/login")
-    public String displayLoginForm(Model model) {
-        model.addAttribute(new LoginFormDTO());
-        model.addAttribute("title", "Log In");
-        return "login";
+    public ResponseEntity<String> displayLoginForm() {
+        // You can modify this as needed, maybe return a URL or a message
+        return new ResponseEntity<>("Please log in", HttpStatus.OK);
     }
 
     @PostMapping("/login")
-    public String processLoginForm(@ModelAttribute @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request, Model model){
+    public ResponseEntity<String> processLoginForm(@RequestBody @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
         if (errors.hasErrors()) {
-            model.addAttribute("title", "Log In");
-            return "login";
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
         User theUser = userRepository.findByEmail(loginFormDTO.getEmail());
 
-        if (theUser == null) {
-            errors.rejectValue("username", "user.invalid", "The given email does not exist");
-            model.addAttribute("title", "Log In");
-            return "login";
+        if (theUser == null || !theUser.isMatchingPassword(loginFormDTO.getPassword())) {
+            return new ResponseEntity<>(HttpStatus.UNAUTHORIZED);
         }
-        String password = loginFormDTO.getPassword();
 
-        if(!theUser.isMatchingPassword(password)) {
-            errors.rejectValue("password", "password.invalid", "Invalid password");
-            model.addAttribute("title", "Log In");
-            return "login";
-        }
         setUserInSession(request.getSession(), theUser);
 
-        return "redirect:";
+        return new ResponseEntity<>("Login successful", HttpStatus.OK);
     }
 
     @GetMapping("/logout")
-    public String logout(HttpServletRequest request) {
+    public ResponseEntity<String> logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "redirect:/login";
+        return new ResponseEntity<>("Logout successful", HttpStatus.OK);
     }
 
 }

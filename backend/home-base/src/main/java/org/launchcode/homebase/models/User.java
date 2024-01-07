@@ -1,19 +1,26 @@
 package org.launchcode.homebase.models;
 
 import jakarta.persistence.Entity;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-
 
 @Entity
 public class User extends AbstractEntity {
 
-    private @NotNull String username;
-    private @NotNull String email;
-    private @NotNull String pwHash;
+    @NotNull
+    private String username;
+
+    @NotNull
+    @Email
+    private String email;
+
+    @NotNull
+    private String pwHash;
+
     private static final BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-    public User(String email, String password) {
+    public User() {
     }
 
     public User(String username, String email, String password) {
@@ -23,15 +30,20 @@ public class User extends AbstractEntity {
     }
 
     public String getUsername() {
-        return this.username;
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
-        return this.email;
+        return email;
     }
 
     public boolean isMatchingPassword(String password) {
-        return encoder.matches(password, this.pwHash);
+        return encoder.matches(password, pwHash);
     }
+
 }
 

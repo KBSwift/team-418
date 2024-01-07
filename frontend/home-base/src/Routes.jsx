@@ -12,18 +12,20 @@ import { NotificationHistory } from './components/views/NotificationHistory';
 
 const Routing = () => {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/signup" element={<Signup/>} />
-        <Route path="/login" element={<Login/>} />
-        <Route path="/edit" element={<Edit/>} />
-        <Route path="/filter-change" element={<FilterChangeCard/>} />
-        <Route path="/editFilter/:id" element={<EditFilter />} />
-        <Route path="/account-settings" element={<AccountSettings/>} />
-        <Route path="/notification-history" element={<NotificationHistory />} />
-      </Routes>
-    </Router>
+    
+      <Router>
+        <NavigationBar />
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/signup" element={<Signup/>} />
+          <Route path="/login" element={<Login/>} />
+          <Route path="/edit" element={<Edit/>} />
+          <Route path="/filter-change" element={<FilterChangeCard/>} />
+          <Route path="/editFilter/:id" element={<EditFilter />} />
+          <Route path="/account-settings" element={<AccountSettings/>} />
+          <Route path="/notification-history" element={<NotificationHistory />} />
+        </Routes>
+      </Router>
   );
 };
 

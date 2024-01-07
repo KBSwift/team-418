@@ -1,8 +1,7 @@
 import React, {useState} from 'react';
-import HomeBase from '../../assets/HomeBase.svg';
-import { Link } from 'react-router-dom';
 import '../styles/SignupStyles.css';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 
 
@@ -14,25 +13,13 @@ export default function Signup() {
     const [name, setName] = useState('');
     const [formSubmitted, setFormSubmitted] = useState(false);
 
+    const navigate = useNavigate();
+
     const handleNameChange = (event) => {
-        // const newName = event.target.value;
-        
-        // if (formSubmitted && (/[^a-zA-Z0-9 ]/.test(newName) || newName.length < 4 || newName.length > 20)) {
-        //     alert("Username must be between 4-20 letters and not contain special characters");
-        //     return;
-        // }
-        // setName(newName);
-        //merge items comment
         setName(event.target.value);
     }
 
     const handlePasswordChange = (event) => {
-        // const newPassword = event.target.value;
-
-        // if (formSubmitted && (newPassword.length < 8 || newPassword.length > 20)) {
-        //     alert("Password must be between 8 and 20 characters");
-        //     return;
-        // }
         setPassword(event.target.value);
     }
 
@@ -49,11 +36,11 @@ export default function Signup() {
         return emailValidation.test(email);
     }
 
-    const handleSubmit = (event) => {
-        let isValid = true;
-        // const navigate = useNavigate();
+    const handleSubmit = async (event) => {
+        event.preventDefault();
 
-      
+        let isValid = true;
+
         if (/[^a-zA-Z0-9 ]/.test(name) || name.length < 4 || name.length > 20) {
           alert("Username must be between 4-20 letters and not contain special characters");
           isValid = false;
@@ -75,13 +62,26 @@ export default function Signup() {
         }
       
         if (isValid) {
-          alert("Form submitted");
-          setFormSubmitted(true);
-
-        //   navigate('/edit');
+            try {
+                const response = await axios.post(
+                "http://localhost:8080/api/register",
+                {
+                    username: name,
+                    email: email,
+                    password: password,
+                    verifyPassword: confirmPassword,
+                }
+                );
+                console.log(response.data);
+                alert("Form submitted");
+                setFormSubmitted(true);
+            } catch (error) {
+                // Handle errors
+                console.error("Error:", error);
+            } finally {
+                navigate('/filter-change');
+            }
         } 
-      
-        event.preventDefault();
       };
 
     return (
@@ -116,5 +116,3 @@ export default function Signup() {
         </div>
     );
 }
-
-
