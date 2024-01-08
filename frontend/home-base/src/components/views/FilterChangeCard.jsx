@@ -4,6 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import CardGroup from 'react-bootstrap/CardGroup';
 import ListGroup from 'react-bootstrap/ListGroup';
+import Alert from 'react-bootstrap/Alert';
 import '../styles/FilterChangeCardStyles.css';
 import axios from 'axios';
 
@@ -14,6 +15,7 @@ function FilterChangeCard(){
     const[equipmentData, setEquipmentData] = useState([]);
     const[loading, setLoading] = useState(true);
     const[error, setError] = useState(null);
+    const[showAlert, setShowAlert] = useState(false);
     
     useEffect(() => {
       loadEquipment();
@@ -79,9 +81,20 @@ function FilterChangeCard(){
         id: selectedEquipment.id,
         name: selectedEquipment.name,
         filters: newFilterArray,
-        filterLifeDays: 60,
+        filterLifeDays: selectedEquipment.filterLifeDays,
       };
-    
+
+      // Step 4: Log Filter change history
+      const filterChangeHistory = {
+        equipmentId: selectedEquipment.id,
+        equipmentName: selectedEquipment.name,
+        changedTimeStamp: new Date().toISOString().split("T")[0], 
+      }
+      await axios.post('http://localhost:8080/api/filterChangeHistory', filterChangeHistory, {
+        headers: {
+            'Content-Type': 'application/json',
+        },
+      });
       // Post new filters
       for (const filter of newFilterArray) {
         await axios.post(`http://localhost:8080/api/equipment/${equipmentId}/filters`, filter, {
@@ -96,6 +109,24 @@ function FilterChangeCard(){
     
       // Fetch the updated data
       await loadEquipment();
+
+      // Display an alert, hides with time delay
+      setShowAlert(true);
+      setTimeout(() => {
+        setShowAlert(false);
+      }, 3000);
+    };
+
+    const renderAlert = () => {
+      if (showAlert) {
+        return (
+          <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+            <Alert.Heading>Filter Changed!</Alert.Heading>
+            <p>All Filters for this Equipment have been successfully changed!</p>
+          </Alert>
+        );
+      }
+      return null;
     };
  
     const renderDeck = () => {
@@ -135,7 +166,10 @@ function FilterChangeCard(){
 
 
     return (
-        renderDeck()
+      <div>
+        {renderAlert()}
+        {renderDeck()}
+      </div>
     );
 }
 

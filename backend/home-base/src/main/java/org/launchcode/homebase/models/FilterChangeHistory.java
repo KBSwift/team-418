@@ -14,19 +14,17 @@ public class FilterChangeHistory extends AbstractEntity{
     private Long equipmentId;
     @Column(nullable = false)
     private String equipmentName;
-    @Column(nullable = false)
-    private Long filterId;
+
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
-    private Date sentTimestamp;
+    private Date changedTimestamp;
 
     public FilterChangeHistory() {
     }
     public FilterChangeHistory(Long equipmentId, String equipmentName, Long filterId, Date sentTimestamp) {
         this.equipmentId = equipmentId;
         this.equipmentName = equipmentName;
-        this.filterId = filterId;
-        this.sentTimestamp = sentTimestamp;
+        this.changedTimestamp = sentTimestamp;
     }
 
     public Long getEquipmentId() {
@@ -45,19 +43,14 @@ public class FilterChangeHistory extends AbstractEntity{
         this.equipmentName = equipmentName;
     }
 
-    public Long getFilterId() {
-        return filterId;
+    public Date getChangedTimestamp() {
+        return changedTimestamp;
     }
 
-    public void setFilterId(Long filterId) {
-        this.filterId = filterId;
-    }
-
-    public Date getSentTimestamp() {
-        return sentTimestamp;
-    }
-
-    public void setSentTimestamp(Date sentTimestamp) {
-        this.sentTimestamp = sentTimestamp;
+    public void setChangedTimestamp(Date changedTimestamp) {
+        this.changedTimestamp = changedTimestamp;
     }
 }
+
+
+
