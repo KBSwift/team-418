@@ -75,12 +75,14 @@ export default function Signup() {
                 console.log(response.data);
                 alert("Form submitted");
                 setFormSubmitted(true);
-            } catch (error) {
-                // Handle errors
-                console.error("Error:", error);
-            } finally {
                 navigate('/filter-change');
-            }
+            } catch (error) {
+                if (error.response && error.response.status === 409) {
+                    alert("Email already has an account.");
+                } else {
+                    console.error("Error:", error);
+                }
+            } 
         } 
       };
 
