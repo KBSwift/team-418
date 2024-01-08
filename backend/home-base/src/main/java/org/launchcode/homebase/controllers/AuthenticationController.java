@@ -52,11 +52,17 @@ public class AuthenticationController {
         return new ResponseEntity<>(user, HttpStatus.OK);
     }
 
-    @PostMapping("/register")
+    @PostMapping("/signup")
     public ResponseEntity<User> registerUser(@RequestBody @Valid RegisterFormDTO registerFormDTO, Errors errors, HttpServletRequest request) {
         if (errors.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+
+        System.out.println("Received data from frontend:");
+        System.out.println("Username: " + registerFormDTO.getUsername());
+        System.out.println("Email: " + registerFormDTO.getEmail());
+        System.out.println("Password: " + registerFormDTO.getPassword());
+        System.out.println("VerifyPassword: " + registerFormDTO.getVerifyPassword());
 
         User existingUser = userRepository.findByUsername(registerFormDTO.getUsername());
 

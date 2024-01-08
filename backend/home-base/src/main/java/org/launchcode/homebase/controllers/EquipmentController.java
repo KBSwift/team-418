@@ -19,6 +19,20 @@ public class EquipmentController {
     @Autowired
     private EquipmentRepository equipmentRepository;
 
+    @GetMapping("/custom-search/{filterSize}")
+    public ResponseEntity<String> performCustomSearch(@PathVariable String filterSize) {
+        String apiKey = "AIzaSyCZTdr48vEcU77Bsyg9qzHFnd8vUUxVeRY";
+        String cx = "f14d504f6ac45450e";
+
+        String query = "Filter " + filterSize;
+
+        String apiUrl = "https://www.googleapis.com/customsearch/v1?q=" + query + "&key=" + apiKey + "&cx=" + cx;
+
+        String resultLink = "https://example.com";
+
+        return ResponseEntity.ok("Check out this filter! " + resultLink);
+    }
+
     @GetMapping("/equipment")
     public ResponseEntity<List<Equipment>> getAllEquipment() {
         List<Equipment> equipment = equipmentRepository.findAll();
