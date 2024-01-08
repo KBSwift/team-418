@@ -20,7 +20,7 @@ export default function Login() {
                     username: email,
                     password: password,
                 },
-            });
+            }, {withCredentials: true});
 
             if (response.status === 200) {
                 login(response.data);
