@@ -9,7 +9,7 @@ import { useAuth } from './AuthContext';
 
 const NavigationBar = () => {
 
-  const { logout } = useAuth;
+  const { logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
