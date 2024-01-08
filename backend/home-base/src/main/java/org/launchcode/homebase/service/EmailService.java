@@ -4,10 +4,12 @@ package org.launchcode.homebase.service;
 import org.launchcode.homebase.data.EmailNotificationRepository;
 import org.launchcode.homebase.data.EquipmentRepository;
 import org.launchcode.homebase.data.FilterRepository;
+import org.launchcode.homebase.data.UserRepository;
 import org.launchcode.homebase.exception.ResourceNotFoundException;
 import org.launchcode.homebase.models.EmailNotification;
 import org.launchcode.homebase.models.Equipment;
 import org.launchcode.homebase.models.Filter;
+import org.launchcode.homebase.models.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sendgrid.helpers.mail.Mail;
@@ -20,6 +22,7 @@ import com.sendgrid.*;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class EmailService {

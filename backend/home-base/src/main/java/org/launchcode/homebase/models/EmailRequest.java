@@ -1,20 +1,15 @@
 package org.launchcode.homebase.models;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
+public class EmailRequest {
 
-
-public class EmailRequest extends AbstractEntity{
-
-    @Column(nullable = false)
     private int equipmentId;
-    @Column(nullable = false)
+
     private int filterId;
-    @Column(nullable = false)
+
     private String to;
-    @Column(nullable = false)
+
     private String subject;
-    @Column(nullable = false)
+
     private String message;
 
     public EmailRequest(int equipmentId, int filterId, String to, String subject, String message) {
