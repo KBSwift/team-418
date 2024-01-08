@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css'
 import Routes from './Routes'
 import NavigationBar from './components/NavigationBar'
+import { AuthProvider } from './components/AuthContext';
 
 function App() {
 
@@ -11,14 +12,11 @@ function App() {
   //need to add a log-in state for the navigation bar (to ignore landing, signup, and login page)
   
   return (
-    <>
+    <AuthProvider>
     <div className='App'>
-      {!LandingPage && <NavigationBar />} 
-      <div>
-        <Routes />
-      </div>
+      <Routes />
     </div>
-    </>
+    </AuthProvider>
   )
 }
 

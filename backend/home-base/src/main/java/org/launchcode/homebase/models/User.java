@@ -1,5 +1,6 @@
 package org.launchcode.homebase.models;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;
@@ -13,6 +14,7 @@ public class User extends AbstractEntity {
 
     @NotNull
     @Email
+    @Column(unique = true)
     private String email;
 
     @NotNull

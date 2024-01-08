@@ -1,25 +1,26 @@
 import React, { useState } from 'react';
 import { Link, NavLink, useNavigate } from 'react-router-dom';
-
 import HomeBase from '../assets/HomeBase.svg';
 import '../components/styles/NavigationBarStyle.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import axios from 'axios';
+import { useAuth } from './AuthContext';
 
 
 const NavigationBar = () => {
 
-  //const navigate = useNavigate();
+  const { logout } = useAuth;
+  const navigate = useNavigate();
 
   const handleLogout = async () => {
     try {
       await axios.get('http://localhost:8080/api/logout');
+      logout();
+      navigate('/login');
     } catch (error) {
-      console.error("Error during logout:", error.response.data.message);
+      console.error("Error during logout:", error.response?.data?.message || "An unexpected error occurred");
     }
-    logout();
-    //navigate('/filter-change');
-  }
+  };
 
   const navbarStyle = {
     paddingLeft: '1rem' 
@@ -77,9 +78,9 @@ const NavigationBar = () => {
               </a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="http://localhost:5173/api/logout/">
+        <button onClick={handleLogout}>
             Logout
-          </a>
+        </button>
         </li>
         </ul>
          {/*<ul className="navbar-nav ml-auto">
