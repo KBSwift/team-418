@@ -43,6 +43,7 @@ public class EmailService {
 
     private SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
 //    Bash commands for updating
+//    echo "sendgrid.env" >> .gitignore
 //    echo "export SENDGRID_API_KEY='YOUR_API_KEY'" > sendgrid.env
 //    source ./sendgrid.env
     public void sendEmail(int equipmentId, int filterId, String userEmail, String subject, String message) throws Exception {
