@@ -33,7 +33,16 @@ function FilterChangeHistory() {
         return <p>Encoutered error: {error.message}. Please try again.</p>
     }
 
-    const renderTable = () => (
+    const renderTable = () => {
+        if(filterChangeHistory.length === 0) {
+            return (
+                <Alert variant="info">
+                    No data available.
+                </Alert>
+                );
+            }
+            
+            return (
         <div>
             <h2>Filter Change History</h2>
             <Table striped bordered hover>
@@ -54,7 +63,8 @@ function FilterChangeHistory() {
         </Table>
         </div>
         
-    );
+        );
+    };
 
     return renderTable();
 }
