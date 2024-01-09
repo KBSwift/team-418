@@ -95,8 +95,11 @@ public class EmailService {
     public void sendEmailsForDueFilters() {
         try {
             List<Filter> filtersDueForChange = filterService.getFiltersToChangeInNext7Days();
-            for (Filter filter : filtersDueForChange) {
-                sendEmailForFilterChange(filter);
+            User firstUser = userRepository.findAll().stream().findFirst().orElse(null);
+            if(firstUser != null) {
+                for (Filter filter : filtersDueForChange) {
+                    sendEmailForFilterChange(filter, firstUser);
+                }
             }
         } catch (Exception ex) {
             System.err.println("Error sending emails for due filters: " + ex.getMessage());
