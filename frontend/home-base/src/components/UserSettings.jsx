@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { Table, Button, Modal } from "react-bootstrap";
 import "./styles/EditEquipmentTableStyles.css";
+import { useNavigate } from 'react-router-dom';
 
 
 export const UserSettings = () => {
@@ -9,6 +10,8 @@ export const UserSettings = () => {
     const [users, setUsers] = useState([]);
     const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteUserId, setDeleteUserId] = useState(null);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         loadUsers();
@@ -24,7 +27,7 @@ export const UserSettings = () => {
     };
 
     const handleEdit = (userId) => {
-        //EDIT LOGIC
+        navigate(`/edit-user/${userId}`);
     };
 
     const handleDelete = async (userId) => {
