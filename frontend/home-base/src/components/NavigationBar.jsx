@@ -29,11 +29,9 @@ const NavigationBar = () => {
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-light fixed-top" style={navbarStyle}>
       <a className="navbar-brand" href="/">
-        <nav class="navbar navbar-light bg-light">
-          <a class="navbar-brand" href="/">
-            <img src={HomeBase} width="30" height="30" class="d-inline-block align-top" alt="HomeBase Logo" />
-            HomeBase
-          </a>
+        <nav className="navbar navbar-light bg-light">
+          <img src={HomeBase} width="30" height="30" className="d-inline-block align-top" alt="HomeBase Logo" />
+          HomeBase
       </nav>
       </a>
       {/* <button
