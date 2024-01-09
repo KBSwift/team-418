@@ -9,7 +9,7 @@ import { useAuth } from './AuthContext';
 
 const NavigationBar = () => {
 
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -60,28 +60,13 @@ const NavigationBar = () => {
               Notification History 
             </a>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/account-settings">
-              Account
-            </a>
-        </li>
         <li className="nav-item">
             <a className="nav-link" href="/edit">
               Edit
             </a>
         </li>
-        <li className="nav-item">
-              <a className="nav-link" href="/login">
-                Login
-              </a>
-        </li>
-        <li className="nav-item">
-        <button onClick={handleLogout}>
-            Logout
-        </button>
-        </li>
         </ul>
-         {/*<ul className="navbar-nav ml-auto">
+         <ul className="navbar-nav ml-auto">
           {user ? (
             <>
               <li className="nav-item">
@@ -100,7 +85,7 @@ const NavigationBar = () => {
               </Link>
             </li>
           )}
-        </ul> */}
+        </ul>
       {/* </div> */}
     </nav>
   );
