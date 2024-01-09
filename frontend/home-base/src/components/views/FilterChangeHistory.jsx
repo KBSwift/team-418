@@ -1,5 +1,6 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Table } from "react-bootstrap";
+import axios from "axios";
 
 
 function FilterChangeHistory() {
@@ -32,7 +33,7 @@ function FilterChangeHistory() {
         return <p>Encoutered error: {error.message}. Please try again.</p>
     }
 
-    const renderTable = () => {
+    const renderTable = () => (
         <div>
             <h2>Filter Change History</h2>
             <Table striped bordered hover>
@@ -45,7 +46,7 @@ function FilterChangeHistory() {
             <tbody>
                 {filterChangeHistory.map((historyItem, index) => (
                     <tr key={index}>
-                        <td>{historyItem.changedTimeStamp}</td>
+                        <td>{new Date(historyItem.changedTimeStamp).toLocaleDateString()}</td>
                         <td>{historyItem.equipmentName}</td>
                     </tr>
                 ))}
@@ -53,9 +54,9 @@ function FilterChangeHistory() {
         </Table>
         </div>
         
-    };
+    );
 
-    return renderTable
+    return renderTable();
 }
 
 export default FilterChangeHistory
