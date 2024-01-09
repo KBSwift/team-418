@@ -3,6 +3,7 @@ package org.launchcode.homebase.controllers;
 import org.launchcode.homebase.data.EquipmentRepository;
 import org.launchcode.homebase.exception.ResourceNotFoundException;
 import org.launchcode.homebase.models.Equipment;
+import org.launchcode.homebase.service.GoogleAPIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,15 @@ public class EquipmentController {
 
     @Autowired
     private EquipmentRepository equipmentRepository;
+
+    @Autowired
+    private GoogleAPIService googleAPIService;
+
+    @GetMapping("/custom-search")
+    public ResponseEntity<String> searchFiltersBySize(@RequestParam String filterSize) {
+        String result = googleAPIService.searchFiltersBySize(filterSize);
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
     @GetMapping("/equipment")
     public ResponseEntity<List<Equipment>> getAllEquipment() {
