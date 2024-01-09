@@ -103,7 +103,7 @@ public class EmailService {
         }
     }
 
-    private void sendEmailForFilterChange(Filter filter) throws Exception {
+    private void sendEmailForFilterChange(Filter filter,User user) throws Exception {
         // Create email content and subject
         String emailContent = "Your filter for " + filter.getEquipment().getName() + " is due for change.";
         String emailSubject = "Filter Change Reminder";
@@ -112,7 +112,7 @@ public class EmailService {
         sendEmail(
                 filter.getEquipment().getId(),
                 filter.getId(),
-                "recipient@example.com", // Replace with the actual recipient email
+                user.getEmail(), // Replace with the actual recipient email
                 emailSubject,
                 emailContent
         );
@@ -121,7 +121,7 @@ public class EmailService {
         logEmailNotification(
                 filter.getEquipment().getId(),
                 filter.getId(),
-                "recipient@example.com", // Replace with the actual recipient email
+                user.getEmail(), // Replace with the actual recipient email
                 emailSubject,
                 emailContent
         );
