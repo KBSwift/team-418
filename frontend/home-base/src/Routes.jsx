@@ -9,6 +9,7 @@ import FilterChangeCard from './components/views/FilterChangeCard';
 import EditFilter from './components/views/EditFilter';
 import AccountSettings from './components/views/AccountSettings'
 import { NotificationHistory } from './components/views/NotificationHistory';
+import FilterChangeHistory from './components/views/FilterChangeHistory';
 
 const Routing = () => {
   return (
@@ -24,6 +25,7 @@ const Routing = () => {
           <Route path="/editFilter/:id" element={<EditFilter />} />
           <Route path="/account-settings" element={<AccountSettings/>} />
           <Route path="/notification-history" element={<NotificationHistory />} />
+          <Route path="/filter-history" element={<FilterChangeHistory />} />
         </Routes>
       </Router>
   );

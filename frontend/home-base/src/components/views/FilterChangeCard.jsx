@@ -16,7 +16,7 @@ function FilterChangeCard(){
     const[equipmentData, setEquipmentData] = useState([]);
     const[loading, setLoading] = useState(true);
     const[error, setError] = useState(null);
-    const[showAlert, setShowAlert] = useState(false);
+    // const[showAlert, setShowAlert] = useState(false);
     
     useEffect(() => {
       loadEquipment();
@@ -112,23 +112,23 @@ function FilterChangeCard(){
       await loadEquipment();
 
       // Display an alert, hides with time delay
-      setShowAlert(true);
-      setTimeout(() => {
-        setShowAlert(false);
-      }, 3000);
+      // setShowAlert(true);
+      // setTimeout(() => {
+      //   setShowAlert(false);
+      // }, 3000);
     };
 
-    const renderAlert = () => {
-      if (showAlert) {
-        return (
-          <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
-            <Alert.Heading>Filter Changed!</Alert.Heading>
-            <p>All Filters for this Equipment have been successfully changed!</p>
-          </Alert>
-        );
-      }
-      return null;
-    };
+    // const renderAlert = () => {
+    //   if (showAlert) {
+    //     return (
+    //       <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+    //         <Alert.Heading>Filter Changed!</Alert.Heading>
+    //         <p>All Filters for this Equipment have been successfully changed!</p>
+    //       </Alert>
+    //     );
+    //   }
+    //   return null;
+    // };
  
     const renderDeck = () => {
       return (
@@ -168,7 +168,7 @@ function FilterChangeCard(){
 
     return (
       <div>
-        {renderAlert()}
+        {/* {renderAlert()} */}
         {renderDeck()}
       </div>
     );

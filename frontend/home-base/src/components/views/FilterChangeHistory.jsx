@@ -9,15 +9,20 @@ function FilterChangeHistory() {
     const[error, setError] = useState(null);
 
     useEffect(() => {
+        loadHistory();
+      }, []);
+
+      const loadHistory = async () => {
         try {
-            const response = axios.get("http://localhost:8080/api/filter-history");
-            setFilterChangeHistory(response.data);
-            setLoading(false);
+          const response = await axios.get("http://localhost:8080/api/filter-history");
+          console.log(response.data);
+          setFilterChangeHistory(response.data);
+          setLoading(false);
         } catch (error) {
-            setError(error);
-            setLoading(false);
+          setError(error);
+          setLoading(false);
         }
-    });
+      };  
 
     if(loading) {
         return <p>Loading...</p>
