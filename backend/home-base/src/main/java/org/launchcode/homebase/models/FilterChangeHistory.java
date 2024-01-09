@@ -21,10 +21,10 @@ public class FilterChangeHistory extends AbstractEntity{
 
     public FilterChangeHistory() {
     }
-    public FilterChangeHistory(Long equipmentId, String equipmentName, Long filterId, Date sentTimestamp) {
+    public FilterChangeHistory(Long equipmentId, String equipmentName, Long filterId, Date sentTimeStamp) {
         this.equipmentId = equipmentId;
         this.equipmentName = equipmentName;
-        this.changedTimeStamp = sentTimestamp;
+        this.changedTimeStamp = sentTimeStamp;
     }
 
     public Long getEquipmentId() {
@@ -43,11 +43,11 @@ public class FilterChangeHistory extends AbstractEntity{
         this.equipmentName = equipmentName;
     }
 
-    public Date getChangedTimestamp() {
+    public Date getChangedTimeStamp() {
         return changedTimeStamp;
     }
 
-    public void setChangedTimestamp(Date changedTimestamp) {
-        this.changedTimeStamp = changedTimestamp;
+    public void setChangedTimeStamp(Date changedTimeStamp) {
+        this.changedTimeStamp = changedTimeStamp;
     }
 }

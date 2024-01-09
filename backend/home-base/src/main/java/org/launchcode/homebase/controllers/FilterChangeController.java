@@ -17,7 +17,7 @@ public class FilterChangeController {
 
     @Autowired
     private FilterChangeRepository filterChangeRepository;
-    @GetMapping("/")
+    @GetMapping("")
     public List<FilterChangeHistory> getFilterChangeHistory () {
         return filterChangeRepository.findAll();
     }
@@ -26,6 +26,16 @@ public class FilterChangeController {
     public ResponseEntity<List<FilterChangeHistory>> getByEquipmentId(@PathVariable Long equipmentId) {
         List<FilterChangeHistory> historyList = filterChangeRepository.findByEquipmentId(equipmentId);
         return ResponseEntity.ok(historyList);
+    }
+
+    @PostMapping("")
+    public ResponseEntity<String> createFilterChangeHistory(@RequestBody FilterChangeHistory filterChangeHistory) {
+        try {
+            filterChangeRepository.save(filterChangeHistory);
+            return ResponseEntity.ok("Filter History Saved.");
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body("Failed to save Filter Change: " + e.getMessage());
+        }
     }
 //    @GetMapping("/date")
 //    public ResponseEntity<List<FilterChangeHistory>> getByDateRange(
