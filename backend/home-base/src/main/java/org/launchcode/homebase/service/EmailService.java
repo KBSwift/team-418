@@ -43,15 +43,11 @@ public class EmailService {
 
     private final SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
 
-    public void sendEmail(int equipmentId, int filterId, String to, String subject, String message) throws Exception {
+    public void sendEmail(int equipmentId, int filterId, String userEmail, String subject, String message) throws Exception {
         //Code for sendEmail
         try {
-            Optional<User> userOptional = userRepository.findById(userId);
-
-            if (userOptional.isPresent()) {
-                String to = userOptional.get().getEmail();
                 Email from = new Email("kenjigw@gmail.com");
-                Email toEmail = new Email(to);
+                Email toEmail = new Email(userEmail);
                 Content content = new Content("text/plain", message);
                 Mail mail = new Mail(from, subject, toEmail, content);
 
@@ -64,11 +60,6 @@ public class EmailService {
                 System.out.println(response.getStatusCode());
                 System.out.println(response.getBody());
                 System.out.println(response.getHeaders());
-
-                logEmailNotification(equipmentId, filterId, to, subject, message);
-            } else {
-                throw new ResourceNotFoundException("User not found with id = " + userId);
-            }
 
         } catch (IOException ex) {
             throw new Exception("Failed to send email: " + ex.getMessage());
