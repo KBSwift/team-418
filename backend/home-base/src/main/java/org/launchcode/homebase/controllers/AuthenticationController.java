@@ -87,7 +87,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> processLoginForm(@RequestBody @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
+    public ResponseEntity<User> processLoginForm(@RequestBody @Valid LoginFormDTO loginFormDTO, Errors errors, HttpServletRequest request) {
         if (errors.hasErrors()) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
@@ -100,7 +100,9 @@ public class AuthenticationController {
 
         setUserInSession(request.getSession(), theUser);
 
-        return new ResponseEntity<>("Login successful", HttpStatus.OK);
+        System.out.println("User authenticated: " + theUser.getUsername());
+
+        return new ResponseEntity<>(theUser, HttpStatus.OK);
     }
 
     @GetMapping("/logout")

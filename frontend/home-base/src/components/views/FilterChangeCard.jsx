@@ -50,6 +50,10 @@ function FilterChangeCard(){
     if(error) {
         return <p>Encoutered error: {error.message}. Please try again.</p>
     }
+
+    if (equipmentData.length === 0) {
+      return<p>Please add filters to track.</p>;
+    }
     
     const handleClick = async (equipmentId) => {
       const selectedEquipment = equipmentData.find((equipment) => equipment.id === equipmentId);

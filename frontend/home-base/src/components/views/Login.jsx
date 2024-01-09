@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { useAuth } from '../AuthContext';
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const { login } = useAuth();
     const navigate = useNavigate();
 
     const handleSubmit = async (event) => {
@@ -13,14 +15,17 @@ export default function Login() {
             const response = await axios.post('http://localhost:8080/api/login', {
                 email: email,
                 password: password,
-            });
-            console.log(response.data);
+            }, {
+                auth: {
+                    username: email,
+                    password: password,
+                },
+            }, {withCredentials: true});
 
             if (response.status === 200) {
-                // Navigate to '/edit' on successful login
+                login(response.data);
                 navigate('/edit');
             } else {
-                // Show an alert for incorrect credentials
                 alert('Email or Password do not match');
             }
             
