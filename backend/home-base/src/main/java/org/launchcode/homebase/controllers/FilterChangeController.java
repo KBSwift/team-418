@@ -27,11 +27,11 @@ public class FilterChangeController {
         List<FilterChangeHistory> historyList = filterChangeRepository.findByEquipmentId(equipmentId);
         return ResponseEntity.ok(historyList);
     }
-    @GetMapping("/date")
-    public ResponseEntity<List<FilterChangeHistory>> getByDateRange(
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
-        List<FilterChangeHistory> historyList = filterChangeRepository.findByDateOfChangeBetween(startDate, endDate);
-        return ResponseEntity.ok(historyList);
-    }
+//    @GetMapping("/date")
+//    public ResponseEntity<List<FilterChangeHistory>> getByDateRange(
+//            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+//            @RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate) {
+//        List<FilterChangeHistory> historyList = filterChangeRepository.findByDateOfChangeBetween(startDate, endDate);
+//        return ResponseEntity.ok(historyList);
+//    }
 }

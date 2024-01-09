@@ -13,7 +13,7 @@ public interface FilterChangeRepository extends JpaRepository<FilterChangeHistor
 
     List<FilterChangeHistory> findByEquipmentId(Long equipmentId);
 
-    List<FilterChangeHistory> findByDateOfChangeBetween(Date startDate, Date endDate);
+//    List<FilterChangeHistory> findByDateOfChangeBetween(Date startDate, Date endDate);
 
 
 
