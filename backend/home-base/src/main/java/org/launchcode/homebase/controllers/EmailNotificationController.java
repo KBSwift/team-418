@@ -3,9 +3,9 @@ package org.launchcode.homebase.controllers;
 import org.launchcode.homebase.data.EmailNotificationRepository;
 import org.launchcode.homebase.models.EmailNotification;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,4 +21,9 @@ public class EmailNotificationController {
         return emailNotificationRepository.findAll();
     }
 
+    @PostMapping("")
+    public ResponseEntity<EmailNotification> saveNotification(@RequestBody EmailNotification emailNotification) {
+        EmailNotification _emailNotification = emailNotificationRepository.save(emailNotification);
+        return new ResponseEntity<>(_emailNotification, HttpStatus.CREATED);
+    }
 }
