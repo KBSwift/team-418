@@ -41,15 +41,19 @@ public class EmailService {
     @Autowired
     private UserRepository userRepository;
 
-    private final SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
-
+    private SendGrid sg = new SendGrid(System.getenv("SENDGRID_API_KEY"));
+//    Bash commands for updating
+//    echo "export SENDGRID_API_KEY='YOUR_API_KEY'" > sendgrid.env
+//    source ./sendgrid.env
     public void sendEmail(int equipmentId, int filterId, String userEmail, String subject, String message) throws Exception {
         //Code for sendEmail
         try {
+
                 Email from = new Email("kenjigw@gmail.com");
                 Email toEmail = new Email(userEmail);
                 Content content = new Content("text/plain", message);
                 Mail mail = new Mail(from, subject, toEmail, content);
+
 
                 Request request = new Request();
                 request.setMethod(Method.POST);
