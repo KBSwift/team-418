@@ -25,6 +25,8 @@ dependencies {
 	implementation 'org.springframework.security:spring-security-crypto:5.5.8'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	implementation 'com.sendgrid:sendgrid-java:4.10.1'
 
 }
 

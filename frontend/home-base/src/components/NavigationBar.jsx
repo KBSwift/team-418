@@ -9,7 +9,7 @@ import { useAuth } from './AuthContext';
 
 const NavigationBar = () => {
 
-  const { logout } = useAuth();
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -29,11 +29,9 @@ const NavigationBar = () => {
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-light fixed-top" style={navbarStyle}>
       <a className="navbar-brand" href="/">
-        <nav class="navbar navbar-light bg-light">
-          <a class="navbar-brand" href="/">
-            <img src={HomeBase} width="30" height="30" class="d-inline-block align-top" alt="HomeBase Logo" />
-            HomeBase
-          </a>
+        <nav className="navbar navbar-light bg-light">
+          <img src={HomeBase} width="30" height="30" className="d-inline-block align-top" alt="HomeBase Logo" />
+          HomeBase
       </nav>
       </a>
       {/* <button
@@ -67,28 +65,13 @@ const NavigationBar = () => {
               Notification History 
             </a>
           </li>
-          <li className="nav-item">
-            <a className="nav-link" href="/account-settings">
-              Account
-            </a>
-        </li>
         <li className="nav-item">
             <a className="nav-link" href="/edit">
               Edit
             </a>
         </li>
-        <li className="nav-item">
-              <a className="nav-link" href="/login">
-                Login
-              </a>
-        </li>
-        <li className="nav-item">
-        <button onClick={handleLogout}>
-            Logout
-        </button>
-        </li>
         </ul>
-         {/*<ul className="navbar-nav ml-auto">
+         <ul className="navbar-nav ml-auto">
           {user ? (
             <>
               <li className="nav-item">
@@ -107,7 +90,7 @@ const NavigationBar = () => {
               </Link>
             </li>
           )}
-        </ul> */}
+        </ul>
       {/* </div> */}
     </nav>
   );
