@@ -23,12 +23,25 @@ public class EquipmentController {
     @Autowired
     private GoogleAPIService googleAPIService;
 
-    @GetMapping("/custom-search")
-    public ResponseEntity<String> searchFiltersBySize(@RequestParam String filterSize) {
-        String result = googleAPIService.searchFiltersBySize(filterSize);
-        return new ResponseEntity<>(result, HttpStatus.OK);
-    }
+//    @GetMapping("/google-search-link")
+//    public ResponseEntity<String> getGoogleSearchLink(@RequestParam String filterSize) {
+//
+//        String searchQuery = filterSize + " air filter";
+//
+//        String googleSearchLink = googleAPIService.getGoogleSearchLink(searchQuery);
+//
+//        return new ResponseEntity<>(googleSearchLink, HttpStatus.OK);
+//    }
 
+    @GetMapping("/equipment/{id}/google-search-link")
+    public ResponseEntity<String> getGoogleSearchLinkForEquipment(@PathVariable("id") int equipmentId) {
+        try {
+            String googleSearchLink = googleAPIService.getGoogleSearchLinkForEquipment(equipmentId);
+            return new ResponseEntity<>(googleSearchLink, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error triggering Google search: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @GetMapping("/equipment")
     public ResponseEntity<List<Equipment>> getAllEquipment() {
         List<Equipment> equipment = equipmentRepository.findAll();
