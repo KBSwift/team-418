@@ -51,6 +51,7 @@ function FilterChangeCard(){
         return <p>Encoutered error: {error.message}. Please try again.</p>
     }
 
+    //Display message if data empty
     if (equipmentData.length === 0) {
       return<p>Please add filters to track.</p>;
     }

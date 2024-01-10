@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import '../styles/SignupStyles.css';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import { useAuth } from '../AuthContext';
 
 
 
@@ -12,6 +13,8 @@ export default function Signup() {
     const [email, setEmail] = useState('');
     const [name, setName] = useState('');
     const [formSubmitted, setFormSubmitted] = useState(false);
+
+    const { login } = useAuth();
 
     const navigate = useNavigate();
 
@@ -75,6 +78,7 @@ export default function Signup() {
                 console.log(response.data);
                 alert("Form submitted");
                 setFormSubmitted(true);
+                login(response.data);
                 navigate('/filter-change');
             } catch (error) {
                 if (error.response && error.response.status === 409) {
