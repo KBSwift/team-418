@@ -56,6 +56,11 @@ const NavigationBar = () => {
             </a>
           </li>
           <li className="nav-item">
+            <a className="nav-link" href="/filter-history">
+              Filter History 
+            </a>
+          </li>
+          <li className="nav-item">
             <a className="nav-link" href="/notification-history">
               Notification History 
             </a>
