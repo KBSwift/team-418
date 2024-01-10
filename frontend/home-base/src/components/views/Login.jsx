@@ -53,6 +53,7 @@ export default function Login() {
                 </div>
                     <input type="submit" value="Submit" />
             </form>
+            <small>Don't have an account? Register <a href={"/signup"}>here</a>.</small>
         </div>
     );
 }

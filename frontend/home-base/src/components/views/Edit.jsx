@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import AddEquipmentForm from '../AddEquipmentForm';
 import AddFilterForm from '../AddFilterForm';
 import EditEquipmentTable from '../EditEquipmentTable';
+import { UserSettings } from '../UserSettings';
 import '../styles/EditStyles.css';
 import { useNavigate } from "react-router-dom";
 
@@ -15,7 +16,7 @@ export default function Edit() {
     switch (selectedOption) {
       case 'userSettings':
         // Render User Settings component
-        return <UserSettingsComponent />;
+        return <UserSettings />;
       case 'editEquipment':
         // Render Equipment Settings component
         return <EditEquipmentTable />;
@@ -73,8 +74,3 @@ export default function Edit() {
     </div>
   );
 }
-
-// Additional components for rendering
-const UserSettingsComponent = () => {
-  return <div>User Settings Component</div>;
-};
