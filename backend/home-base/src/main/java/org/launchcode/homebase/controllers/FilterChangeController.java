@@ -12,6 +12,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:5175/")
 @RequestMapping("api/filter-history")
 public class FilterChangeController {
 
