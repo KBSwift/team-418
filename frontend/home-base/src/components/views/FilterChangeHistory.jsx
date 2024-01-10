@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Table } from "react-bootstrap";
+import { Button, Container, Table, Row, Col } from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert';
 import axios from "axios";
 
@@ -34,6 +34,15 @@ function FilterChangeHistory() {
         return <p>Encoutered error: {error.message}. Please try again.</p>
     }
 
+    const handleClick = async () => {
+        try {
+            const response = await axios.post("http://localhost:8080/api/filter-history/email");
+            console.log(response.data);
+        } catch (error) {
+            console.error("Failed to send emails: ", error);
+        }
+    };
+
     const renderTable = () => {
         if(filterChangeHistory.length === 0) {
             return (
@@ -46,6 +55,14 @@ function FilterChangeHistory() {
             return (
         <div>
             <h2>Filter Change History</h2>
+            <Container>
+                <Row>
+                    <Button onClick={handleClick}>Send Email Notifications</Button>
+                </Row>    
+                <Row>    
+                    <h6>Checks for Filters Due and sends email</h6>
+                </Row>
+            </Container>
             <Table striped bordered hover>
             <thead>
                 <tr>
@@ -62,6 +79,7 @@ function FilterChangeHistory() {
                 ))}
             </tbody>
         </Table>
+        
         </div>
         
         );
