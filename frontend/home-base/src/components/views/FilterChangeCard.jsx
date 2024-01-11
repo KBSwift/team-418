@@ -46,6 +46,11 @@ function FilterChangeCard(){
       }
     };
  
+    //Display message if data empty
+    if (equipmentData.length === 0) {
+      return<p>Please add filters to track.</p>;
+    }
+
     if(loading) {
         return <p>Loading...</p>
     }
@@ -53,7 +58,7 @@ function FilterChangeCard(){
     if(error) {
         return <p>Encoutered error: {error.message}. Please try again.</p>
     }
-    
+
     const handleClick = async (equipmentId) => {
       const selectedEquipment = equipmentData.find((equipment) => equipment.id === equipmentId);
       const filterLocations = [];
