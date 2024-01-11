@@ -3,6 +3,7 @@ package org.launchcode.homebase.controllers;
 import org.launchcode.homebase.data.EquipmentRepository;
 import org.launchcode.homebase.exception.ResourceNotFoundException;
 import org.launchcode.homebase.models.Equipment;
+import org.launchcode.homebase.service.GoogleAPIService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,6 +20,28 @@ public class EquipmentController {
     @Autowired
     private EquipmentRepository equipmentRepository;
 
+    @Autowired
+    private GoogleAPIService googleAPIService;
+
+//    @GetMapping("/google-search-link")
+//    public ResponseEntity<String> getGoogleSearchLink(@RequestParam String filterSize) {
+//
+//        String searchQuery = filterSize + " air filter";
+//
+//        String googleSearchLink = googleAPIService.getGoogleSearchLink(searchQuery);
+//
+//        return new ResponseEntity<>(googleSearchLink, HttpStatus.OK);
+//    }
+
+    @GetMapping("/equipment/{id}/google-search-link")
+    public ResponseEntity<String> getGoogleSearchLinkForEquipment(@PathVariable("id") int equipmentId) {
+        try {
+            String googleSearchLink = googleAPIService.getGoogleSearchLinkForEquipment(equipmentId);
+            return new ResponseEntity<>(googleSearchLink, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>("Error triggering Google search: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
     @GetMapping("/equipment")
     public ResponseEntity<List<Equipment>> getAllEquipment() {
         List<Equipment> equipment = equipmentRepository.findAll();
