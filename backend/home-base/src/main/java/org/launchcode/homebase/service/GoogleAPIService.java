@@ -10,36 +10,6 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.List;
 
-//@Service
-//public class GoogleAPIService {
-//
-//    @Value("${google.api.key}")
-//    private String apiKey;
-//
-//    @Value("${google.customsearch.engineId}")
-//    private String engineId;
-//
-//    public String searchFiltersBySize(String filterSize) {
-//        String apiUrl = "https://www.googleapis.com/customsearch/v1";
-//        String query = "air filter size " + filterSize;
-//
-//        // Set up the request parameters
-//        String url = String.format("%s?q=%s&key=%s&cx=%s", apiUrl, query, apiKey, engineId);
-//
-//        // Make a GET request to the Google Custom Search API
-//        RestTemplate restTemplate = new RestTemplate();
-////        return restTemplate.getForObject(url, String.class);
-//        String searchresult = restTemplate.getForObject(url, String.class);
-//
-//        System.out.println(searchresult);
-//        return searchresult;
-//
-//    }
-//        public String getGoogleSearchLink(String query) {
-//            String googleSearchLink = "https://www.google.com/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8);
-//            return googleSearchLink;
-//        }
-//}
 
 @Service
 public class GoogleAPIService {
@@ -72,4 +42,35 @@ public class GoogleAPIService {
         return null;
     }
 }
+
+//@Service
+//public class GoogleAPIService {
+//
+//    @Value("${google.api.key}")
+//    private String apiKey;
+//
+//    @Value("${google.customsearch.engineId}")
+//    private String engineId;
+//
+//    public String searchFiltersBySize(String filterSize) {
+//        String apiUrl = "https://www.googleapis.com/customsearch/v1";
+//        String query = "air filter size " + filterSize;
+//
+//        // Set up the request parameters
+//        String url = String.format("%s?q=%s&key=%s&cx=%s", apiUrl, query, apiKey, engineId);
+//
+//        // Make a GET request to the Google Custom Search API
+//        RestTemplate restTemplate = new RestTemplate();
+////        return restTemplate.getForObject(url, String.class);
+//        String searchresult = restTemplate.getForObject(url, String.class);
+//
+//        System.out.println(searchresult);
+//        return searchresult;
+//
+//    }
+//        public String getGoogleSearchLink(String query) {
+//            String googleSearchLink = "https://www.google.com/search?q=" + URLEncoder.encode(query, StandardCharsets.UTF_8);
+//            return googleSearchLink;
+//        }
+//}
 

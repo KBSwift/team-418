@@ -23,16 +23,6 @@ public class EquipmentController {
     @Autowired
     private GoogleAPIService googleAPIService;
 
-//    @GetMapping("/google-search-link")
-//    public ResponseEntity<String> getGoogleSearchLink(@RequestParam String filterSize) {
-//
-//        String searchQuery = filterSize + " air filter";
-//
-//        String googleSearchLink = googleAPIService.getGoogleSearchLink(searchQuery);
-//
-//        return new ResponseEntity<>(googleSearchLink, HttpStatus.OK);
-//    }
-
     @GetMapping("/equipment/{id}/google-search-link")
     public ResponseEntity<String> getGoogleSearchLinkForEquipment(@PathVariable("id") int equipmentId) {
         try {
