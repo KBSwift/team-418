@@ -134,6 +134,9 @@ public class Filter extends AbstractEntity{
             if (dueDate != null && isWithinNext7Days(dueDate)) {
                 filtersToChange.add(filter);
             }
+            if (dueDate != null && dueDate.getTime() < System.currentTimeMillis()) {
+                filtersToChange.add(filter);
+            }
         }
         return filtersToChange;
     }

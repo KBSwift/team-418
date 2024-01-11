@@ -10,6 +10,7 @@ import org.launchcode.homebase.models.EmailNotification;
 import org.launchcode.homebase.models.Equipment;
 import org.launchcode.homebase.models.Filter;
 import org.launchcode.homebase.models.User;
+import org.launchcode.homebase.service.FilterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sendgrid.helpers.mail.Mail;
@@ -94,11 +95,17 @@ public class EmailService {
     @Scheduled(cron = "0 0 5 * * ?") // Run every day at 5 am
     public void sendEmailsForDueFilters() {
         try {
+            System.out.println("method called");
             List<Filter> filtersDueForChange = filterService.getFiltersToChangeInNext7Days();
-            User firstUser = userRepository.findAll().stream().findFirst().orElse(null);
-            if(firstUser != null) {
+            User user = userRepository.findByEmail("abwashingstl@gmail.com");
+            System.out.println("Number of filters due for change: " + filtersDueForChange.size());
+            System.out.println("User exists: " + (user != null));
+            if(user == null) {
+                System.out.println("User does not exist");
+            }
+            if(user != null) {
                 for (Filter filter : filtersDueForChange) {
-                    sendEmailForFilterChange(filter, firstUser);
+                    sendEmailForFilterChange(filter, user);
                 }
             }
         } catch (Exception ex) {
@@ -108,6 +115,10 @@ public class EmailService {
 
     private void sendEmailForFilterChange(Filter filter,User user) throws Exception {
         // Create email content and subject
+        System.out.println("Sending email for filter change...");
+        System.out.println("User email: " + user.getEmail());
+        System.out.println("Filter equipment name: " + filter.getEquipment().getName());
+
         String emailContent = "Your filter for " + filter.getEquipment().getName() + " is due for change.";
         String emailSubject = "Filter Change Reminder";
 
