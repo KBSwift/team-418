@@ -23,32 +23,22 @@ const NavigationBar = () => {
   };
 
   const navbarStyle = {
-    paddingLeft: '1rem' 
+    paddingLeft: '1rem',
+    paddingRight: '1rem' 
   }; //can add specific in-line styling to the navbar here 
+
+  if(location.pathname === "/") {
+    return null;
+  }
 
   return (
     <nav className="navbar navbar-expand-sm navbar-light bg-light fixed-top" style={navbarStyle}>
-      <a className="navbar-brand" href="/">
+      <a className="navbar-brand" href="/edit">
         <nav className="navbar navbar-light bg-light">
           <img src={HomeBase} width="30" height="30" className="d-inline-block align-top" alt="HomeBase Logo" />
           HomeBase
       </nav>
       </a>
-      {/* <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button> */}
-
-      {/* Cant get dropdown menu to work  */}
-
-      {/* <div className="collapse navbar-collapse" id="navbarSupportedContent"> */}
         <ul className="navbar-nav mr-auto">
           <li className="nav-item">
             <a className="nav-link" href="/filter-change">
@@ -91,7 +81,6 @@ const NavigationBar = () => {
             </li>
           )}
         </ul>
-      {/* </div> */}
     </nav>
   );
   

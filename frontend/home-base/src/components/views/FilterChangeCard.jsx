@@ -44,7 +44,16 @@ function FilterChangeCard(){
       } catch (error) {
         console.error('Error updating equipment:', error);
       }
-    };
+  };
+  
+  const handleGoogleSearch = async (equipmentId) => {
+    try {
+        const response = await axios.get(`http://localhost:8080/api/equipment/${equipmentId}/google-search-link`);
+        window.open(response.data, '_blank');
+    } catch (error) {
+        console.error('Error triggering Google search:', error);
+    }
+};
  
     //Display message if data empty
     if (equipmentData.length === 0) {
@@ -159,8 +168,9 @@ function FilterChangeCard(){
                       </ListGroup>
                     ))}
                   </div>
-                  <div className='text-center'>
-                    <Button onClick={() => handleClick(item.id)} variant="success">Change Now</Button>
+                  <div className='button-container text-center'>
+                    <Button onClick={() => handleClick(item.id)} variant="success" className="mr-2">Change Now</Button>
+                    <Button onClick={() => handleGoogleSearch(item.id)} variant="primary">Find This Filter</Button>
                   </div>
                 </Card.Body>
               </Card>
