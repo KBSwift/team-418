@@ -34,7 +34,7 @@ export const NotificationHistory = () => {
                             <td>{emailNotification.equipmentId}</td>
                             <td>{emailNotification.equipmentName}</td>
                             <td>{emailNotification.filterId}</td>
-                            <td>{emailNotification.sentTimestamp}</td>
+                            <td>{new Date(emailNotification.sentTimestamp).toLocaleString()}</td>
                         </tr>
                     ))}
                 </tbody>
