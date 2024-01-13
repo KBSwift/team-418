@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Button, Container, Table, Row, Col } from "react-bootstrap";
+import { Button, Container, Table, Row, Col, AlertHeading } from "react-bootstrap";
 import Alert from 'react-bootstrap/Alert';
 import axios from "axios";
 
@@ -9,6 +9,7 @@ function FilterChangeHistory() {
     const[filterChangeHistory, setFilterChangeHistory] = useState([]);
     const[loading, setLoading] = useState(true);
     const[error, setError] = useState(null);
+    const[showAlert, setShowAlert] = useState(false);
 
     useEffect(() => {
         loadHistory();
@@ -41,14 +42,41 @@ function FilterChangeHistory() {
         } catch (error) {
             console.error("Failed to send emails: ", error);
         }
+        setShowAlert(true);
+        setTimeout(() => {
+            setShowAlert(false);
+          }, 10000);
     };
+
+    const renderAlert = () => {
+        if(showAlert) {
+            return (
+                <Alert variant="success" onClose={() => setShowAlert(false)} dismissible>
+                    <Alert.Heading>Emails Sent!</Alert.Heading>
+                    <p>Thanks for using Home Base!</p>
+                </Alert>
+            );
+        }
+        return null;
+    }
 
     const renderTable = () => {
         if(filterChangeHistory.length === 0) {
             return (
+            <div>
                 <Alert variant="info">
                     No data available.
                 </Alert>
+                <Container>
+                <Row>
+                    <Button onClick={handleClick}>Send Email Notifications</Button>
+                </Row>    
+                <Row>    
+                    <h6>Checks for filters due and sends email</h6>
+                </Row>
+            </Container>
+            </div>
+                
                 );
             }
             
@@ -85,7 +113,12 @@ function FilterChangeHistory() {
         );
     };
 
-    return renderTable();
+    return (
+        <div>
+            {renderAlert()}
+            {renderTable()}
+        </div>
+    ) 
 }
 
 export default FilterChangeHistory
