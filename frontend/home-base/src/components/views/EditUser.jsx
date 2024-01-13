@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate, useParams } from 'react-router-dom';
-import { Form, Button } from 'react-bootstrap';
 import '../styles/AddFormStyles.css';
 
 export default function EditUser() {
@@ -111,8 +110,8 @@ export default function EditUser() {
         }
   
         const response = await axios.put(`http://localhost:8080/api/users/${id}`, payload);
-        console.log(response.data);
-        navigate('/edit'); // Redirect to user settings or another page
+        //console.log(response.data);
+        navigate('/edit');
       } catch (error) {
         // Handle other errors
         console.error('Error:', error);
@@ -121,7 +120,7 @@ export default function EditUser() {
   };
 
   const cancelEdit = () => {
-    navigate('/edit'); // Redirect to user settings or another page
+    navigate('/edit');
   };
 
   return (

@@ -22,7 +22,7 @@ const EditFilter = () => {
     const loadFilter = async () => {
         try {
             const result = await axios.get(`http://localhost:8080/api/filters/${id}`);
-            console.log(result.data);
+            //console.log(result.data);
             setFilter(result.data);
         } catch (error) {
             console.error('Error loading filter:', error);
@@ -117,7 +117,7 @@ const EditFilter = () => {
               }
             );
 
-            console.log(response.data);
+            //console.log(response.data);
             navigate(-1);
           } catch (error) {
             // Handle other errors
