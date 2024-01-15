@@ -29,6 +29,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'com.sendgrid:sendgrid-java:4.10.1'
 	implementation 'com.github.serpapi:google-search-results-java:2.0.2'
+	implementation 'com.fasterxml.jackson.core:jackson-databind:+'
+
 }
 
 
