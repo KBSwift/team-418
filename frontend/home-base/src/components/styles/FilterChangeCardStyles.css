@@ -27,3 +27,8 @@
 .button-container {
     padding: 10px;
 }
+
+.button-wrapper {
+    margin-right: 10px;
+    margin-bottom: 5px;
+  }

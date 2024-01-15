@@ -53,8 +53,22 @@ function FilterChangeCard(){
     } catch (error) {
         console.error('Error triggering Google search:', error);
     }
-};
- 
+  };
+
+  const formatFilterSize = (filter) => {
+    return `filter size ${filter.length} x ${filter.width} x ${filter.height}`;
+  };
+
+  const handleSerpApi = async (formatFilterSize) => {
+    try {
+      const response = await axios.get(`http://localhost:8080/search?filterSize=${formatFilterSize}`, { timeout: 5000 });
+      console.log('SerpApi response:', response.data);
+      window.open(response.data, '_blank');
+    } catch (error) {
+      console.error('Error calling Serpapi:', error.message);
+    }
+  };
+  
     //Display message if data empty
     if (equipmentData.length === 0) {
       return<p>Please add filters to track.</p>;
@@ -169,9 +183,16 @@ function FilterChangeCard(){
                     ))}
                   </div>
                   <div className='button-container text-center'>
-                    <Button onClick={() => handleClick(item.id)} variant="success" className="mr-2">Change Now</Button>
+                  <div className="button-wrapper">
+                    <Button onClick={() => handleClick(item.id)} variant="success">Change Now</Button>
+                  </div>
+                  <div className="button-wrapper">
                     <Button onClick={() => handleGoogleSearch(item.id)} variant="primary">Find This Filter</Button>
                   </div>
+                  <div className="button-wrapper">
+                    <Button onClick={() => handleSerpApi(formatFilterSize(item.filters[0]))} variant="info">Test API!</Button>
+                  </div>
+                </div>
                 </Card.Body>
               </Card>
             ))}
