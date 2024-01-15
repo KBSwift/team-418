@@ -1,8 +1,6 @@
 package org.launchcode.homebase.service;
 
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.web.client.RestTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.UnsupportedEncodingException;
@@ -12,7 +10,7 @@ import java.util.List;
 
 
 @Service
-public class GoogleAPIService {
+public class GoogleSearchService {
 
     @Autowired
     private EquipmentService equipmentService;
