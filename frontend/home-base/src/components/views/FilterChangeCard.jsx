@@ -175,10 +175,9 @@ function FilterChangeCard(){
                         
                         <div>
                           <ListGroup.Item className="custom-listgroup-item">Filter Size: {filter.length} x {filter.width} x {filter.height}</ListGroup.Item>
-                        <ListGroup.Item className="custom-listgroup-item">Date of Last Change: {filter.dateOfLastChange}</ListGroup.Item>
-                        <ListGroup.Item className="custom-listgroup-item">Due Date: {new Date(new Date(filter.dateOfLastChange).setDate(new Date(filter.dateOfLastChange).getDate() + item.filterLifeDays)).toISOString().split("T")[0]}</ListGroup.Item>
-                        </div>
-                        
+                        <ListGroup.Item className="custom-listgroup-item">Date of Last Change: {new Date(filter.dateOfLastChange).toLocaleDateString('en-US').replace(/\//g, '-')}</ListGroup.Item>
+                        <ListGroup.Item className="custom-listgroup-item">Due Date: {new Date(new Date(filter.dateOfLastChange).setDate(new Date(filter.dateOfLastChange).getDate() + item.filterLifeDays)).toLocaleDateString('en-US').replace(/\//g, '-')}</ListGroup.Item>
+                        </div>                        
                       </ListGroup>
                     ))}
                   </div>
