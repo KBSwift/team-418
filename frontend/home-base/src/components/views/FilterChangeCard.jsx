@@ -72,13 +72,13 @@ function FilterChangeCard(){
       const selectedEquipment = equipmentData.find((equipment) => equipment.id === equipmentId);
       const filterLocations = [];
       const newFilterArray = [];
-      console.log(selectedEquipment);
+      
       // Step 1: Delete all existing filters
       for (const filter of selectedEquipment.filters) {
         filterLocations.push(filter.location);
         await axios.delete(`http://localhost:8080/api/filters/${filter.id}`);
       }
-      console.log(filterLocations)
+      
       // Step 2: Create new filters with updated dimensions and dateOfLastChange
       for (const location of filterLocations) {
         const newFilter = {
@@ -90,7 +90,7 @@ function FilterChangeCard(){
         };
         newFilterArray.push(newFilter);
       }
-      console.log(newFilterArray);
+      
       // Step 3: Update equipment data
       const updatedData = {
         id: selectedEquipment.id,
@@ -129,7 +129,7 @@ function FilterChangeCard(){
       setShowAlert(true);
       setTimeout(() => {
         setShowAlert(false);
-      }, 3000);
+      }, 10000);
     };
 
     const renderAlert = () => {

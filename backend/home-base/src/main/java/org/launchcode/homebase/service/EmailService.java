@@ -10,7 +10,6 @@ import org.launchcode.homebase.models.EmailNotification;
 import org.launchcode.homebase.models.Equipment;
 import org.launchcode.homebase.models.Filter;
 import org.launchcode.homebase.models.User;
-import org.launchcode.homebase.service.FilterService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.sendgrid.helpers.mail.Mail;
@@ -95,9 +94,10 @@ public class EmailService {
     @Scheduled(cron = "0 0 5 * * ?") // Run every day at 5 am
     public void sendEmailsForDueFilters() {
         try {
-            System.out.println("method called");
+
             List<Filter> filtersDueForChange = filterService.getFiltersToChangeInNext7Days();
-            User user = userRepository.findByEmail("abwashingstl@gmail.com");
+
+            User user = userRepository.findById(1).orElse(null);
             System.out.println("Number of filters due for change: " + filtersDueForChange.size());
             System.out.println("User exists: " + (user != null));
             if(user == null) {
@@ -113,7 +113,7 @@ public class EmailService {
         }
     }
 
-    private void sendEmailForFilterChange(Filter filter,User user) throws Exception {
+    private void sendEmailForFilterChange(Filter filter, User user) throws Exception {
         // Create email content and subject
         System.out.println("Sending email for filter change...");
         System.out.println("User email: " + user.getEmail());
