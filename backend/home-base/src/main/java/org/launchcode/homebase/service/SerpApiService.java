@@ -1,5 +1,7 @@
 package org.launchcode.homebase.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -24,20 +26,28 @@ public class SerpApiService {
     public String getGoogleShoppingResults(String searchQuery) {
         try {
             String apiUrl = buildSerpApiUrl(searchQuery);
-            System.out.println("API Key: " + serpApiKey);
+
+
             System.out.println("API URL: " + apiUrl);
 
             HttpRequest request = HttpRequest.newBuilder()
                     .uri(URI.create(apiUrl + "&api_key=" + serpApiKey))
                     .build();
 
-            System.out.println("API Key: " + serpApiKey);
-            System.out.println("API URL: " + apiUrl);
             HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
+//            return response.body();
 
-            return response.body();
+            ObjectMapper objectMapper = new ObjectMapper();
+            JsonNode rootNode = objectMapper.readTree(response.body());
+
+
+            JsonNode searchMetadataNode = rootNode.path("search_metadata");
+            String googleUrl = searchMetadataNode.path("google_url").asText();
+
+            System.out.println(googleUrl);
+
+            return googleUrl;
         } catch (IOException | InterruptedException e) {
-            // Handle the exception appropriately, log it, and maybe return a meaningful message
             e.printStackTrace();
             return "Error fetching Google Shopping results";
         }
