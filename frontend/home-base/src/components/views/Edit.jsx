@@ -4,13 +4,9 @@ import AddFilterForm from '../AddFilterForm';
 import EditEquipmentTable from '../EditEquipmentTable';
 import { UserSettings } from '../UserSettings';
 import '../styles/EditStyles.css';
-import { useNavigate } from "react-router-dom";
-
 
 export default function Edit() {
   const [selectedOption, setSelectedOption] = useState(null);
-
-  const navigate = useNavigate();
 
   const renderComponent = () => {
     switch (selectedOption) {

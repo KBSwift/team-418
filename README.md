@@ -1,24 +1,27 @@
 # team-418
 
-Project Name: Home Base
+Project Name: HomeBase
 
-Description: A virtual homeowner’s manual to hold information about consumables for a home which sends text and email reminders with links to purchase items needed. To limit the project we will focus on HVAC air filter replacement since it is common to almost all houses but is easily forgotten. The program will take and store air filter size information, issue text and email reminders at set intervals, and allow different levels of access to different users via registration and login.
+Description: A virtual homeowner’s manual to hold information about consumables for a home that sends email reminders and generates links to purchase items needed. To limit the project we focused on HVAC air filter replacement since it is common to almost all houses but is easily forgotten. The program will take and store air filter size information, issue email reminders at set intervals, and allow user account creation and management.
 
-Base Feature List
-User Account Creation and Management: User can create accounts - admins can edit information while regular users cannot
-Full CRUD Functionality:  Admins can save, edit, and delete filter size information. Regular users can read.
+Base Feature List:
+User Account Creation and Management: User can create and manage accounts
+Full CRUD Functionality: Users can save, read, edit, and delete filter size information.
 Relational Database: Filter size information stored in a MySQL database
-External API Usage: Amazon Price and Twilio
+External API Usage: SendGrid API for email reminders and Serp API for Google Shopping results
 
-Projected Tech Stack
+Additional Features:
+Users can mark filter as changed
+Google search for filters in database
+Track filter change history
+Track email notification history
+
+Projected Tech Stack:
 React for front end
-Java and Spring for back end
+Spring Boot for back end
 MySQL for database
-Amazon Price for item link and Twilio for text/email reminders
+SendGrid API for email reminders and Serp API for item link
 
+Members: Austin H., Brittney E., Liam C
 
-Members: Austin H., Brittney E., Liam C. Tracy H.
-
-Branch structure: main/name/feature
-
-New
+<img src="./frontend/home-base/src/assets/HomeBaseLanding.png" alt="Home Base Landing" />

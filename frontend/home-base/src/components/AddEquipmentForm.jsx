@@ -59,7 +59,7 @@ const AddEquipmentForm = () => {
           "http://localhost:8080/api/equipment",
           equipment
         );
-        console.log(response.data);
+        //console.log(response.data);
       } catch (error) {
         // Handle errors
         console.error("Error:", error);

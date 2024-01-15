@@ -75,7 +75,7 @@ export default function Signup() {
                     verifyPassword: confirmPassword,
                 }
                 );
-                console.log(response.data);
+                //console.log(response.data);
                 alert("Form submitted");
                 setFormSubmitted(true);
                 login(response.data);

@@ -26,7 +26,7 @@ const AddFilterForm = () => {
   const loadEquipment = async () => {
         try {
             const result = await axios.get("http://localhost:8080/api/equipment");
-            console.log(result.data);
+            //console.log(result.data);
             setEquipment(result.data);
         } catch (error) {
             console.error('Error loading equipment:', error);
@@ -125,7 +125,7 @@ const AddFilterForm = () => {
           `http://localhost:8080/api/equipment/${selectedEquipmentId}/filters`,
           filter
         );
-        console.log(response.data);
+        //console.log(response.data);
         navigate(0);
       } catch (error) {
         // Handle errors
