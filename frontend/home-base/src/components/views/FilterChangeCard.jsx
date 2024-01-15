@@ -158,7 +158,7 @@ function FilterChangeCard(){
     const renderDeck = () => {
       return (
         <div>
-          <CardGroup>
+          <CardGroup className="custom-card-group">
             {equipmentData.map((item) => (
               <Card key={item.id} className = "custom-card">
                 <Card.Body>
