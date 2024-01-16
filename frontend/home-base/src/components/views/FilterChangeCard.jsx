@@ -1,10 +1,7 @@
 
 import React from 'react';
 import { useState, useEffect } from 'react';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import CardGroup from 'react-bootstrap/CardGroup';
-import ListGroup from 'react-bootstrap/ListGroup';
+import { Card, CardGroup, ListGroup, Button} from 'react-bootstrap';
 import Alert from 'react-bootstrap/Alert';
 import '../styles/FilterChangeCardStyles.css';
 import axios from 'axios';
@@ -161,7 +158,7 @@ function FilterChangeCard(){
     const renderDeck = () => {
       return (
         <div>
-          <CardGroup>
+          <CardGroup className="custom-card-group">
             {equipmentData.map((item) => (
               <Card key={item.id} className = "custom-card">
                 <Card.Body>
@@ -175,10 +172,9 @@ function FilterChangeCard(){
                         
                         <div>
                           <ListGroup.Item className="custom-listgroup-item">Filter Size: {filter.length} x {filter.width} x {filter.height}</ListGroup.Item>
-                        <ListGroup.Item className="custom-listgroup-item">Date of Last Change: {filter.dateOfLastChange}</ListGroup.Item>
-                        <ListGroup.Item className="custom-listgroup-item">Due Date: {new Date(new Date(filter.dateOfLastChange).setDate(new Date(filter.dateOfLastChange).getDate() + item.filterLifeDays)).toISOString().split("T")[0]}</ListGroup.Item>
-                        </div>
-                        
+                        <ListGroup.Item className="custom-listgroup-item">Date of Last Change: {new Date(filter.dateOfLastChange).toLocaleDateString('en-US').replace(/\//g, '-')}</ListGroup.Item>
+                        <ListGroup.Item className="custom-listgroup-item">Due Date: {new Date(new Date(filter.dateOfLastChange).setDate(new Date(filter.dateOfLastChange).getDate() + item.filterLifeDays)).toLocaleDateString('en-US').replace(/\//g, '-')}</ListGroup.Item>
+                        </div>                        
                       </ListGroup>
                     ))}
                   </div>
@@ -200,7 +196,6 @@ function FilterChangeCard(){
         </div>
       );
     };
-
 
     return (
       <div>
